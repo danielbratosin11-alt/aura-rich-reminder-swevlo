@@ -53,7 +53,7 @@ export default function HomeScreen() {
         useNativeDriver: true,
       }),
     ]).start();
-  }, []);
+  }, [fadeAnim, scaleAnim]);
 
   const checkAndUpdateStreak = async () => {
     try {
