@@ -154,13 +154,13 @@ export default function HomeScreen() {
           <View style={styles.statsContainer}>
             {/* Day Streak */}
             <View style={styles.statBox}>
-              <Text style={styles.statLabel}>Day Streak</Text>
+              <Text style={styles.statLabel}>DAY STREAK</Text>
               <Text style={styles.statValue}>{dayStreak}</Text>
             </View>
 
             {/* Wealth Level */}
             <View style={styles.statBox}>
-              <Text style={styles.statLabel}>Wealth Level</Text>
+              <Text style={styles.statLabel}>WEALTH LEVEL</Text>
               <Text style={styles.infinitySymbol}>∞</Text>
             </View>
           </View>
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
   dateText: {
     fontFamily: 'CormorantGaramond_300Light',
     fontSize: 18,
-    color: '#C9A961',
+    color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 1,
   },
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
   statBox: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: 30,
     paddingHorizontal: 20,
     borderWidth: 1,
@@ -266,10 +267,11 @@ const styles = StyleSheet.create({
   statLabel: {
     fontFamily: 'CormorantGaramond_400Regular',
     fontSize: 14,
-    color: '#C9A961',
+    color: '#D4AF37',
     textTransform: 'uppercase',
     letterSpacing: 2,
     marginBottom: 15,
+    textAlign: 'center',
   },
   statValue: {
     fontFamily: 'PlayfairDisplay_700Bold',
@@ -278,6 +280,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(212, 175, 55, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 8,
+    textAlign: 'center',
   },
   infinitySymbol: {
     fontFamily: 'PlayfairDisplay_700Bold',
@@ -286,6 +289,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(212, 175, 55, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 8,
+    textAlign: 'center',
   },
   bottomMessageContainer: {
     alignItems: 'center',
@@ -294,7 +298,7 @@ const styles = StyleSheet.create({
   bottomMessage: {
     fontFamily: 'CormorantGaramond_300Light',
     fontSize: 16,
-    color: '#C9A961',
+    color: '#D4AF37',
     fontStyle: 'italic',
     textAlign: 'center',
     letterSpacing: 1,
