@@ -1,55 +1,54 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { NativeTabs, Icon, Label } from 'expo-router/unstable-native-tabs';
+
 import { Stack } from 'expo-router';
 import FloatingTabBar, { TabBarItem } from '@/components/FloatingTabBar';
+import { Platform } from 'react-native';
+import React from 'react';
+import { NativeTabs, Icon, Label } from 'expo-router/unstable-native-tabs';
 
 export default function TabLayout() {
-  // Define the tabs configuration
   const tabs: TabBarItem[] = [
     {
-      name: '(home)',
-      route: '/(tabs)/(home)/',
-      icon: 'house.fill',
-      label: 'Home',
+      route: '/(home)',
+      label: 'Aura',
+      icon: 'sparkles',
     },
     {
-      name: 'profile',
-      route: '/(tabs)/profile',
-      icon: 'person.fill',
+      route: '/profile',
       label: 'Profile',
+      icon: 'person.circle',
     },
   ];
 
-  // Use NativeTabs for iOS, custom FloatingTabBar for Android and Web
   if (Platform.OS === 'ios') {
     return (
-      <NativeTabs>
-        <NativeTabs.Trigger name="(home)">
-          <Icon sf="house.fill" drawable="ic_home" />
-          <Label>Home</Label>
-        </NativeTabs.Trigger>
-        <NativeTabs.Trigger name="profile">
-          <Icon sf="person.fill" drawable="ic_profile" />
-          <Label>Profile</Label>
-        </NativeTabs.Trigger>
-      </NativeTabs>
+      <>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(home)" />
+          <Stack.Screen name="profile" />
+        </Stack>
+        <FloatingTabBar tabs={tabs} />
+      </>
     );
   }
 
-  // For Android and Web, use Stack navigation with custom floating tab bar
   return (
-    <>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          animation: 'none', // Remove fade animation to prevent black screen flash
+    <NativeTabs>
+      <NativeTabs.Screen
+        name="(home)"
+        options={{
+          title: 'Aura',
+          tabBarIcon: ({ color }) => <Icon name="sparkles" color={color} />,
+          tabBarLabel: ({ color }) => <Label color={color}>Aura</Label>,
         }}
-      >
-        <Stack.Screen name="(home)" />
-        <Stack.Screen name="profile" />
-      </Stack>
-      <FloatingTabBar tabs={tabs} />
-    </>
+      />
+      <NativeTabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <Icon name="person.circle" color={color} />,
+          tabBarLabel: ({ color }) => <Label color={color}>Profile</Label>,
+        }}
+      />
+    </NativeTabs>
   );
 }

@@ -1,104 +1,167 @@
-import React from "react";
-import { Stack, Link } from "expo-router";
-import { FlatList, Pressable, StyleSheet, View, Text, Alert, Platform } from "react-native";
-import { IconSymbol } from "@/components/IconSymbol";
-import { GlassView } from "expo-glass-effect";
-import { useTheme } from "@react-navigation/native";
 
-const ICON_COLOR = "#007AFF";
+import React, { useEffect, useState } from "react";
+import { Stack } from "expo-router";
+import { StyleSheet, View, Text, Platform, Animated } from "react-native";
+import { useTheme } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFonts, PlayfairDisplay_400Regular, PlayfairDisplay_700Bold } from "@expo-google-fonts/playfair-display";
+import { CormorantGaramond_300Light, CormorantGaramond_400Regular } from "@expo-google-fonts/cormorant-garamond";
+import { LinearGradient } from "expo-linear-gradient";
+
+const LAST_OPENED_KEY = "@aura_last_opened";
+const STREAK_KEY = "@aura_streak";
 
 export default function HomeScreen() {
   const theme = useTheme();
-  const modalDemos = [
-    {
-      title: "Standard Modal",
-      description: "Full screen modal presentation",
-      route: "/modal",
-      color: "#007AFF",
-    },
-    {
-      title: "Form Sheet",
-      description: "Bottom sheet with detents and grabber",
-      route: "/formsheet",
-      color: "#34C759",
-    },
-    {
-      title: "Transparent Modal",
-      description: "Overlay without obscuring background",
-      route: "/transparent-modal",
-      color: "#FF9500",
+  const [currentDate, setCurrentDate] = useState("");
+  const [dayStreak, setDayStreak] = useState(0);
+  const fadeAnim = useState(new Animated.Value(0))[0];
+  const scaleAnim = useState(new Animated.Value(0.9))[0];
+
+  const [fontsLoaded] = useFonts({
+    PlayfairDisplay_400Regular,
+    PlayfairDisplay_700Bold,
+    CormorantGaramond_300Light,
+    CormorantGaramond_400Regular,
+  });
+
+  useEffect(() => {
+    // Format current date
+    const today = new Date();
+    const options: Intl.DateTimeFormatOptions = { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    };
+    setCurrentDate(today.toLocaleDateString('en-US', options));
+
+    // Check and update streak
+    checkAndUpdateStreak();
+
+    // Animate entrance
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1500,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        tension: 20,
+        friction: 7,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
+
+  const checkAndUpdateStreak = async () => {
+    try {
+      const lastOpened = await AsyncStorage.getItem(LAST_OPENED_KEY);
+      const storedStreak = await AsyncStorage.getItem(STREAK_KEY);
+      
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const todayString = today.toISOString();
+
+      if (lastOpened) {
+        const lastDate = new Date(lastOpened);
+        lastDate.setHours(0, 0, 0, 0);
+        
+        const diffTime = today.getTime() - lastDate.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+        console.log('Last opened:', lastOpened);
+        console.log('Days difference:', diffDays);
+
+        if (diffDays === 0) {
+          // Same day, keep current streak
+          setDayStreak(parseInt(storedStreak || "1"));
+        } else if (diffDays === 1) {
+          // Next day, increment streak
+          const newStreak = parseInt(storedStreak || "0") + 1;
+          setDayStreak(newStreak);
+          await AsyncStorage.setItem(STREAK_KEY, newStreak.toString());
+          await AsyncStorage.setItem(LAST_OPENED_KEY, todayString);
+        } else {
+          // Streak broken, reset to 1
+          setDayStreak(1);
+          await AsyncStorage.setItem(STREAK_KEY, "1");
+          await AsyncStorage.setItem(LAST_OPENED_KEY, todayString);
+        }
+      } else {
+        // First time opening
+        setDayStreak(1);
+        await AsyncStorage.setItem(STREAK_KEY, "1");
+        await AsyncStorage.setItem(LAST_OPENED_KEY, todayString);
+      }
+    } catch (error) {
+      console.error("Error managing streak:", error);
+      setDayStreak(1);
     }
-  ];
+  };
 
-  const renderModalDemo = ({ item }: { item: (typeof modalDemos)[0] }) => (
-    <GlassView style={[
-      styles.demoCard,
-      Platform.OS !== 'ios' && { backgroundColor: theme.dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }
-    ]} glassEffectStyle="regular">
-      <View style={[styles.demoIcon, { backgroundColor: item.color }]}>
-        <IconSymbol name="square.grid.3x3" color="white" size={24} />
-      </View>
-      <View style={styles.demoContent}>
-        <Text style={[styles.demoTitle, { color: theme.colors.text }]}>{item.title}</Text>
-        <Text style={[styles.demoDescription, { color: theme.dark ? '#98989D' : '#666' }]}>{item.description}</Text>
-      </View>
-      <Link href={item.route as any} asChild>
-        <Pressable>
-          <GlassView style={[
-            styles.tryButton,
-            Platform.OS !== 'ios' && { backgroundColor: theme.dark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)' }
-          ]} glassEffectStyle="clear">
-            <Text style={[styles.tryButtonText, { color: theme.colors.primary }]}>Try It</Text>
-          </GlassView>
-        </Pressable>
-      </Link>
-    </GlassView>
-  );
-
-  const renderHeaderRight = () => (
-    <Pressable
-      onPress={() => Alert.alert("Not Implemented", "This feature is not implemented yet")}
-      style={styles.headerButtonContainer}
-    >
-      <IconSymbol name="plus" color={theme.colors.primary} />
-    </Pressable>
-  );
-
-  const renderHeaderLeft = () => (
-    <Pressable
-      onPress={() => Alert.alert("Not Implemented", "This feature is not implemented yet")}
-      style={styles.headerButtonContainer}
-    >
-      <IconSymbol
-        name="gear"
-        color={theme.colors.primary}
-      />
-    </Pressable>
-  );
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <>
       {Platform.OS === 'ios' && (
         <Stack.Screen
           options={{
-            title: "Building the app...",
-            headerRight: renderHeaderRight,
-            headerLeft: renderHeaderLeft,
+            headerShown: false,
           }}
         />
       )}
-      <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-        <FlatList
-          data={modalDemos}
-          renderItem={renderModalDemo}
-          keyExtractor={(item) => item.route}
-          contentContainerStyle={[
-            styles.listContainer,
-            Platform.OS !== 'ios' && styles.listContainerWithTabBar
-          ]}
-          contentInsetAdjustmentBehavior="automatic"
-          showsVerticalScrollIndicator={false}
-        />
+      <View style={styles.container}>
+        <LinearGradient
+          colors={['#000000', '#0A0A0A', '#000000']}
+          style={styles.gradient}
+        >
+          <Animated.View 
+            style={[
+              styles.content,
+              {
+                opacity: fadeAnim,
+                transform: [{ scale: scaleAnim }],
+              },
+            ]}
+          >
+            {/* Main Message */}
+            <View style={styles.mainMessageContainer}>
+              <Text style={styles.mainMessage}>You Are Rich</Text>
+              <Text style={styles.mainMessage}>Today</Text>
+            </View>
+
+            {/* Date */}
+            <View style={styles.dateContainer}>
+              <View style={styles.divider} />
+              <Text style={styles.dateText}>{currentDate}</Text>
+              <View style={styles.divider} />
+            </View>
+
+            {/* Stats Container */}
+            <View style={styles.statsContainer}>
+              {/* Day Streak */}
+              <View style={styles.statBox}>
+                <Text style={styles.statLabel}>Day Streak</Text>
+                <Text style={styles.statValue}>{dayStreak}</Text>
+              </View>
+
+              {/* Wealth Level */}
+              <View style={styles.statBox}>
+                <Text style={styles.statLabel}>Wealth Level</Text>
+                <Text style={styles.infinitySymbol}>∞</Text>
+              </View>
+            </View>
+
+            {/* Bottom Message */}
+            <View style={styles.bottomMessageContainer}>
+              <Text style={styles.bottomMessage}>Because you deserve the reminder</Text>
+            </View>
+          </Animated.View>
+        </LinearGradient>
       </View>
     </>
   );
@@ -107,55 +170,107 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor handled dynamically
+    backgroundColor: '#000000',
   },
-  listContainer: {
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-  },
-  listContainerWithTabBar: {
-    paddingBottom: 100, // Extra padding for floating tab bar
-  },
-  demoCard: {
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  demoIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 16,
-  },
-  demoContent: {
+  gradient: {
     flex: 1,
+    width: '100%',
+    height: '100%',
   },
-  demoTitle: {
+  content: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 80,
+    paddingHorizontal: 30,
+  },
+  mainMessageContainer: {
+    alignItems: 'center',
+    marginTop: 40,
+  },
+  mainMessage: {
+    fontFamily: 'PlayfairDisplay_700Bold',
+    fontSize: 48,
+    color: '#D4AF37',
+    textAlign: 'center',
+    letterSpacing: 2,
+    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 10,
+  },
+  dateContainer: {
+    alignItems: 'center',
+    width: '100%',
+    marginVertical: 20,
+  },
+  divider: {
+    width: 60,
+    height: 1,
+    backgroundColor: '#D4AF37',
+    marginVertical: 15,
+    opacity: 0.5,
+  },
+  dateText: {
+    fontFamily: 'CormorantGaramond_300Light',
     fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 4,
-    // color handled dynamically
+    color: '#C9A961',
+    textAlign: 'center',
+    letterSpacing: 1,
   },
-  demoDescription: {
+  statsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingHorizontal: 20,
+    gap: 30,
+  },
+  statBox: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 30,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderColor: '#D4AF37',
+    borderRadius: 8,
+    backgroundColor: 'rgba(212, 175, 55, 0.05)',
+    boxShadow: '0px 4px 20px rgba(212, 175, 55, 0.15)',
+    elevation: 5,
+  },
+  statLabel: {
+    fontFamily: 'CormorantGaramond_400Regular',
     fontSize: 14,
-    lineHeight: 18,
-    // color handled dynamically
+    color: '#C9A961',
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+    marginBottom: 15,
   },
-  headerButtonContainer: {
-    padding: 6,
+  statValue: {
+    fontFamily: 'PlayfairDisplay_700Bold',
+    fontSize: 42,
+    color: '#D4AF37',
+    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 8,
   },
-  tryButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
+  infinitySymbol: {
+    fontFamily: 'PlayfairDisplay_700Bold',
+    fontSize: 56,
+    color: '#D4AF37',
+    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 8,
   },
-  tryButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-    // color handled dynamically
+  bottomMessageContainer: {
+    alignItems: 'center',
+    marginBottom: Platform.OS === 'ios' ? 0 : 80,
+  },
+  bottomMessage: {
+    fontFamily: 'CormorantGaramond_300Light',
+    fontSize: 16,
+    color: '#C9A961',
+    fontStyle: 'italic',
+    textAlign: 'center',
+    letterSpacing: 1,
+    opacity: 0.8,
   },
 });

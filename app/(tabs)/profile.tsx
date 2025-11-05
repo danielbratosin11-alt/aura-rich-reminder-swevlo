@@ -1,91 +1,139 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
+import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
+import React from "react";
 import { IconSymbol } from "@/components/IconSymbol";
-import { GlassView } from "expo-glass-effect";
 import { useTheme } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+import { useFonts, PlayfairDisplay_400Regular, PlayfairDisplay_700Bold } from "@expo-google-fonts/playfair-display";
+import { CormorantGaramond_300Light, CormorantGaramond_400Regular } from "@expo-google-fonts/cormorant-garamond";
 
 export default function ProfileScreen() {
   const theme = useTheme();
 
-  return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]} edges={['top']}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={[
-          styles.contentContainer,
-          Platform.OS !== 'ios' && styles.contentContainerWithTabBar
-        ]}
-      >
-        <GlassView style={[
-          styles.profileHeader,
-          Platform.OS !== 'ios' && { backgroundColor: theme.dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }
-        ]} glassEffectStyle="regular">
-          <IconSymbol name="person.circle.fill" size={80} color={theme.colors.primary} />
-          <Text style={[styles.name, { color: theme.colors.text }]}>John Doe</Text>
-          <Text style={[styles.email, { color: theme.dark ? '#98989D' : '#666' }]}>john.doe@example.com</Text>
-        </GlassView>
+  const [fontsLoaded] = useFonts({
+    PlayfairDisplay_400Regular,
+    PlayfairDisplay_700Bold,
+    CormorantGaramond_300Light,
+    CormorantGaramond_400Regular,
+  });
 
-        <GlassView style={[
-          styles.section,
-          Platform.OS !== 'ios' && { backgroundColor: theme.dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' }
-        ]} glassEffectStyle="regular">
-          <View style={styles.infoRow}>
-            <IconSymbol name="phone.fill" size={20} color={theme.dark ? '#98989D' : '#666'} />
-            <Text style={[styles.infoText, { color: theme.colors.text }]}>+1 (555) 123-4567</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <IconSymbol name="location.fill" size={20} color={theme.dark ? '#98989D' : '#666'} />
-            <Text style={[styles.infoText, { color: theme.colors.text }]}>San Francisco, CA</Text>
-          </View>
-        </GlassView>
-      </ScrollView>
-    </SafeAreaView>
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
+    <View style={styles.container}>
+      <LinearGradient
+        colors={['#000000', '#0A0A0A', '#000000']}
+        style={styles.gradient}
+      >
+        <SafeAreaView style={styles.safeArea} edges={['top']}>
+          <ScrollView 
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.header}>
+              <IconSymbol name="person.circle.fill" size={80} color="#D4AF37" />
+              <Text style={styles.title}>Your Aura</Text>
+              <Text style={styles.subtitle}>Luxury is a state of mind</Text>
+            </View>
+
+            <View style={styles.section}>
+              <View style={styles.card}>
+                <Text style={styles.cardTitle}>About Aura</Text>
+                <Text style={styles.cardText}>
+                  Aura is your daily reminder of abundance and prosperity. 
+                  Open the app every day to maintain your streak and affirm your wealth mindset.
+                </Text>
+              </View>
+
+              <View style={styles.card}>
+                <Text style={styles.cardTitle}>Philosophy</Text>
+                <Text style={styles.cardText}>
+                  True wealth begins in the mind. By acknowledging your richness daily, 
+                  you cultivate an abundant mindset that attracts prosperity.
+                </Text>
+              </View>
+
+              <View style={styles.card}>
+                <Text style={styles.cardTitle}>Your Journey</Text>
+                <Text style={styles.cardText}>
+                  Every day you open Aura, you&apos;re reinforcing your commitment to 
+                  abundance. Your streak is a testament to your dedication.
+                </Text>
+              </View>
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    // backgroundColor handled dynamically
-  },
   container: {
     flex: 1,
+    backgroundColor: '#000000',
   },
-  contentContainer: {
-    padding: 20,
+  gradient: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
-  contentContainerWithTabBar: {
-    paddingBottom: 100, // Extra padding for floating tab bar
+  safeArea: {
+    flex: 1,
   },
-  profileHeader: {
+  scrollContent: {
+    paddingHorizontal: 20,
+    paddingBottom: Platform.OS === 'ios' ? 100 : 120,
+  },
+  header: {
     alignItems: 'center',
-    borderRadius: 12,
-    padding: 32,
-    marginBottom: 16,
-    gap: 12,
+    paddingVertical: 40,
   },
-  name: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    // color handled dynamically
+  title: {
+    fontFamily: 'PlayfairDisplay_700Bold',
+    fontSize: 36,
+    color: '#D4AF37',
+    marginTop: 20,
+    letterSpacing: 2,
+    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 10,
   },
-  email: {
+  subtitle: {
+    fontFamily: 'CormorantGaramond_300Light',
     fontSize: 16,
-    // color handled dynamically
+    color: '#C9A961',
+    marginTop: 10,
+    fontStyle: 'italic',
+    letterSpacing: 1,
   },
   section: {
+    gap: 20,
+  },
+  card: {
+    borderWidth: 1,
+    borderColor: '#D4AF37',
     borderRadius: 12,
-    padding: 20,
-    gap: 12,
+    padding: 24,
+    backgroundColor: 'rgba(212, 175, 55, 0.05)',
+    boxShadow: '0px 4px 20px rgba(212, 175, 55, 0.15)',
+    elevation: 5,
   },
-  infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
+  cardTitle: {
+    fontFamily: 'PlayfairDisplay_700Bold',
+    fontSize: 22,
+    color: '#D4AF37',
+    marginBottom: 12,
+    letterSpacing: 1,
   },
-  infoText: {
+  cardText: {
+    fontFamily: 'CormorantGaramond_400Regular',
     fontSize: 16,
-    // color handled dynamically
+    color: '#C9A961',
+    lineHeight: 24,
+    letterSpacing: 0.5,
   },
 });

@@ -1,14 +1,17 @@
+
 import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 export const colors = {
-  primary: '#162456',    // Material Blue
-  secondary: '#193cb8',  // Darker Blue
-  accent: '#64B5F6',     // Light Blue
-  background: '#101824',  // Keeping dark background
-  backgroundAlt: '#162133',  // Keeping dark background
-  text: '#e3e3e3',       // Keeping light text
-  grey: '#90CAF9',       // Light Blue Grey
-  card: '#193cb8',       // Keeping dark card background
+  primary: '#D4AF37',    // Gold
+  secondary: '#FFD700',  // Bright Gold
+  accent: '#C9A961',     // Muted Gold
+  background: '#000000', // Pure Black
+  backgroundAlt: '#0A0A0A', // Slightly lighter black
+  text: '#D4AF37',       // Gold text
+  textSecondary: '#C9A961', // Muted gold for secondary text
+  card: '#0A0A0A',       // Dark card background
+  white: '#FFFFFF',
+  black: '#000000',
 };
 
 export const buttonStyles = StyleSheet.create({
@@ -72,18 +75,18 @@ export const commonStyles = StyleSheet.create({
   },
   card: {
     backgroundColor: colors.backgroundAlt,
-    borderColor: colors.grey,
+    borderColor: colors.primary,
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
     marginVertical: 8,
     width: '100%',
-    boxShadow: '0px 2px 3px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0px 2px 3px rgba(212, 175, 55, 0.3)',
     elevation: 2,
   },
   icon: {
     width: 60,
     height: 60,
-    tintColor: "white",
+    tintColor: colors.primary,
   },
 });
