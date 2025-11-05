@@ -11,7 +11,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  interpolate,
 } from 'react-native-reanimated';
 import { useRouter, usePathname } from 'expo-router';
 import { useTheme } from '@react-navigation/native';
@@ -91,6 +90,7 @@ export default function FloatingTabBar({
   const theme = useTheme();
 
   const handleTabPress = (route: string) => {
+    console.log('Tab pressed:', route);
     router.push(route as any);
   };
 
@@ -117,9 +117,18 @@ export default function FloatingTabBar({
             backgroundColor: 'rgba(10, 10, 10, 0.8)',
             borderWidth: 1,
             borderColor: '#D4AF37',
-            boxShadow: '0px 8px 30px rgba(212, 175, 55, 0.3)',
-            elevation: 10,
           },
+          Platform.select({
+            ios: {
+              shadowColor: '#D4AF37',
+              shadowOffset: { width: 0, height: 8 },
+              shadowOpacity: 0.3,
+              shadowRadius: 15,
+            },
+            android: {
+              elevation: 10,
+            },
+          }),
         ]}
       >
         {tabs.map((tab) => (

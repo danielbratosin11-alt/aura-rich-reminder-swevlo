@@ -26,6 +26,8 @@ export default function HomeScreen() {
   });
 
   useEffect(() => {
+    console.log('HomeScreen mounted');
+    
     // Format current date
     const today = new Date();
     const options: Intl.DateTimeFormatOptions = { 
@@ -102,68 +104,66 @@ export default function HomeScreen() {
   };
 
   if (!fontsLoaded) {
-    return null;
+    console.log('Fonts not loaded yet');
+    return (
+      <View style={styles.container}>
+        <Text style={{ color: '#D4AF37', fontSize: 20 }}>Loading...</Text>
+      </View>
+    );
   }
 
+  console.log('Rendering HomeScreen with streak:', dayStreak);
+
   return (
-    <>
-      {Platform.OS === 'ios' && (
-        <Stack.Screen
-          options={{
-            headerShown: false,
-          }}
-        />
-      )}
-      <View style={styles.container}>
-        <LinearGradient
-          colors={['#000000', '#0A0A0A', '#000000']}
-          style={styles.gradient}
+    <View style={styles.container}>
+      <LinearGradient
+        colors={['#000000', '#0A0A0A', '#000000']}
+        style={styles.gradient}
+      >
+        <Animated.View 
+          style={[
+            styles.content,
+            {
+              opacity: fadeAnim,
+              transform: [{ scale: scaleAnim }],
+            },
+          ]}
         >
-          <Animated.View 
-            style={[
-              styles.content,
-              {
-                opacity: fadeAnim,
-                transform: [{ scale: scaleAnim }],
-              },
-            ]}
-          >
-            {/* Main Message */}
-            <View style={styles.mainMessageContainer}>
-              <Text style={styles.mainMessage}>You Are Rich</Text>
-              <Text style={styles.mainMessage}>Today</Text>
+          {/* Main Message */}
+          <View style={styles.mainMessageContainer}>
+            <Text style={styles.mainMessage}>You Are Rich</Text>
+            <Text style={styles.mainMessage}>Today</Text>
+          </View>
+
+          {/* Date */}
+          <View style={styles.dateContainer}>
+            <View style={styles.divider} />
+            <Text style={styles.dateText}>{currentDate}</Text>
+            <View style={styles.divider} />
+          </View>
+
+          {/* Stats Container */}
+          <View style={styles.statsContainer}>
+            {/* Day Streak */}
+            <View style={styles.statBox}>
+              <Text style={styles.statLabel}>Day Streak</Text>
+              <Text style={styles.statValue}>{dayStreak}</Text>
             </View>
 
-            {/* Date */}
-            <View style={styles.dateContainer}>
-              <View style={styles.divider} />
-              <Text style={styles.dateText}>{currentDate}</Text>
-              <View style={styles.divider} />
+            {/* Wealth Level */}
+            <View style={styles.statBox}>
+              <Text style={styles.statLabel}>Wealth Level</Text>
+              <Text style={styles.infinitySymbol}>∞</Text>
             </View>
+          </View>
 
-            {/* Stats Container */}
-            <View style={styles.statsContainer}>
-              {/* Day Streak */}
-              <View style={styles.statBox}>
-                <Text style={styles.statLabel}>Day Streak</Text>
-                <Text style={styles.statValue}>{dayStreak}</Text>
-              </View>
-
-              {/* Wealth Level */}
-              <View style={styles.statBox}>
-                <Text style={styles.statLabel}>Wealth Level</Text>
-                <Text style={styles.infinitySymbol}>∞</Text>
-              </View>
-            </View>
-
-            {/* Bottom Message */}
-            <View style={styles.bottomMessageContainer}>
-              <Text style={styles.bottomMessage}>Because you deserve the reminder</Text>
-            </View>
-          </Animated.View>
-        </LinearGradient>
-      </View>
-    </>
+          {/* Bottom Message */}
+          <View style={styles.bottomMessageContainer}>
+            <Text style={styles.bottomMessage}>Because you deserve the reminder</Text>
+          </View>
+        </Animated.View>
+      </LinearGradient>
+    </View>
   );
 }
 
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 80,
     paddingHorizontal: 30,
+    paddingBottom: Platform.OS === 'ios' ? 120 : 100,
   },
   mainMessageContainer: {
     alignItems: 'center',
@@ -233,8 +234,17 @@ const styles = StyleSheet.create({
     borderColor: '#D4AF37',
     borderRadius: 8,
     backgroundColor: 'rgba(212, 175, 55, 0.05)',
-    boxShadow: '0px 4px 20px rgba(212, 175, 55, 0.15)',
-    elevation: 5,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#D4AF37',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+      },
+      android: {
+        elevation: 8,
+      },
+    }),
   },
   statLabel: {
     fontFamily: 'CormorantGaramond_400Regular',
@@ -262,7 +272,7 @@ const styles = StyleSheet.create({
   },
   bottomMessageContainer: {
     alignItems: 'center',
-    marginBottom: Platform.OS === 'ios' ? 0 : 80,
+    marginBottom: 0,
   },
   bottomMessage: {
     fontFamily: 'CormorantGaramond_300Light',
