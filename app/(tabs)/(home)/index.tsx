@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { Stack } from "expo-router";
-import { StyleSheet, View, Text, Platform, Animated } from "react-native";
+import { StyleSheet, View, Text, Platform, Animated, Image } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts, PlayfairDisplay_400Regular, PlayfairDisplay_700Bold } from "@expo-google-fonts/playfair-display";
@@ -55,7 +54,7 @@ export default function HomeScreen() {
         useNativeDriver: true,
       }),
     ]).start();
-  }, [fadeAnim, scaleAnim]);
+  }, []);
 
   const checkAndUpdateStreak = async () => {
     try {
@@ -129,6 +128,15 @@ export default function HomeScreen() {
             },
           ]}
         >
+          {/* Logo */}
+          <View style={styles.logoContainer}>
+            <Image 
+              source={require('../../../assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          </View>
+
           {/* Main Message */}
           <View style={styles.mainMessageContainer}>
             <Text style={styles.mainMessage}>You Are Rich</Text>
@@ -181,13 +189,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 80,
+    paddingVertical: 60,
     paddingHorizontal: 30,
-    paddingBottom: Platform.OS === 'ios' ? 120 : 100,
+    paddingBottom: Platform.OS === 'ios' ? 60 : 40,
+  },
+  logoContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    opacity: 0.9,
   },
   mainMessageContainer: {
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 20,
   },
   mainMessage: {
     fontFamily: 'PlayfairDisplay_700Bold',
@@ -272,7 +289,7 @@ const styles = StyleSheet.create({
   },
   bottomMessageContainer: {
     alignItems: 'center',
-    marginBottom: 0,
+    marginBottom: 20,
   },
   bottomMessage: {
     fontFamily: 'CormorantGaramond_300Light',
