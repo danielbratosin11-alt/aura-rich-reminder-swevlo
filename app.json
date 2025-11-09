@@ -46,7 +46,9 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-font",
+      [
+        "expo-font"
+      ],
       "expo-router",
       "expo-web-browser",
       [
@@ -66,7 +68,9 @@
       "typedRoutes": true
     },
     "extra": {
-      "router": {},
+      "router": {
+        "origin": false
+      },
       "eas": {
         "projectId": "your-project-id-here"
       }
