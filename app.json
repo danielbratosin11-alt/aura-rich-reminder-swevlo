@@ -50,12 +50,6 @@
       "bundler": "metro"
     },
     "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": []
-        }
-      ],
       "expo-router",
       "expo-web-browser",
       [
