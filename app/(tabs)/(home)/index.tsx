@@ -36,19 +36,9 @@ export default function HomeScreen() {
   useEffect(() => {
     console.log('HomeScreen mounted');
     
-    // Load language
-    loadLanguage();
+    // Load language and update date
+    loadLanguageAndUpdateDate();
     
-    // Format current date
-    const today = new Date();
-    const options: Intl.DateTimeFormatOptions = { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    };
-    setCurrentDate(today.toLocaleDateString('en-US', options));
-
     // Check and update streak
     checkAndUpdateStreak();
 
@@ -71,15 +61,73 @@ export default function HomeScreen() {
     ]).start();
   }, []);
 
-  const loadLanguage = async () => {
+  const loadLanguageAndUpdateDate = async () => {
     try {
       const saved = await AsyncStorage.getItem(LANGUAGE_KEY);
-      if (saved) {
-        setLanguageCode(saved);
-      }
+      const lang = saved || 'en';
+      setLanguageCode(lang);
+      
+      // Update date with the loaded language
+      updateDate(lang);
     } catch (error) {
       console.error('Error loading language:', error);
+      updateDate('en');
     }
+  };
+
+  const updateDate = (lang: string) => {
+    const today = new Date();
+    const options: Intl.DateTimeFormatOptions = { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    };
+    
+    // Get locale code for date formatting
+    const localeMap: { [key: string]: string } = {
+      en: 'en-US',
+      es: 'es-ES',
+      fr: 'fr-FR',
+      de: 'de-DE',
+      it: 'it-IT',
+      pt: 'pt-PT',
+      ru: 'ru-RU',
+      zh: 'zh-CN',
+      ja: 'ja-JP',
+      ko: 'ko-KR',
+      ar: 'ar-SA',
+      hi: 'hi-IN',
+      bn: 'bn-BD',
+      pa: 'pa-IN',
+      te: 'te-IN',
+      mr: 'mr-IN',
+      ta: 'ta-IN',
+      tr: 'tr-TR',
+      vi: 'vi-VN',
+      pl: 'pl-PL',
+      uk: 'uk-UA',
+      nl: 'nl-NL',
+      ro: 'ro-RO',
+      el: 'el-GR',
+      cs: 'cs-CZ',
+      sv: 'sv-SE',
+      hu: 'hu-HU',
+      fi: 'fi-FI',
+      no: 'no-NO',
+      da: 'da-DK',
+      th: 'th-TH',
+      id: 'id-ID',
+      ms: 'ms-MY',
+      fil: 'fil-PH',
+      he: 'he-IL',
+      fa: 'fa-IR',
+      ur: 'ur-PK',
+      sw: 'sw-KE',
+    };
+    
+    const locale = localeMap[lang] || 'en-US';
+    setCurrentDate(today.toLocaleDateString(locale, options));
   };
 
   const initializeNotifications = async () => {
@@ -141,6 +189,7 @@ export default function HomeScreen() {
 
   const handleLanguageChange = (newLanguageCode: string) => {
     setLanguageCode(newLanguageCode);
+    updateDate(newLanguageCode);
   };
 
   if (!fontsLoaded) {
@@ -152,7 +201,11 @@ export default function HomeScreen() {
     );
   }
 
-  const message = translations[languageCode as keyof typeof translations]?.message || translations.en.message;
+  const translation = translations[languageCode as keyof typeof translations] || translations.en;
+  const message = translation.message;
+  const dayStreakLabel = translation.dayStreak;
+  const wealthLevelLabel = translation.wealthLevel;
+  const becauseYouDeserveText = translation.becauseYouDeserve;
 
   console.log('Rendering HomeScreen with streak:', dayStreak);
 
@@ -212,20 +265,20 @@ export default function HomeScreen() {
           <View style={styles.statsContainer}>
             {/* Day Streak */}
             <View style={styles.statBox}>
-              <Text style={styles.statLabel}>DAY STREAK</Text>
+              <Text style={styles.statLabel}>{dayStreakLabel}</Text>
               <Text style={styles.statValue}>{dayStreak}</Text>
             </View>
 
             {/* Wealth Level */}
             <View style={styles.statBox}>
-              <Text style={styles.statLabel}>WEALTH LEVEL</Text>
+              <Text style={styles.statLabel}>{wealthLevelLabel}</Text>
               <Text style={styles.infinitySymbol}>∞</Text>
             </View>
           </View>
 
           {/* Bottom Message */}
           <View style={styles.bottomMessageContainer}>
-            <Text style={styles.bottomMessage}>Because you deserve the reminder</Text>
+            <Text style={styles.bottomMessage}>{becauseYouDeserveText}</Text>
           </View>
         </Animated.View>
       </LinearGradient>

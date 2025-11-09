@@ -56,14 +56,15 @@ export async function scheduleDailyNotification(languageCode: string = 'en', hou
     // Cancel all existing notifications
     await Notifications.cancelAllScheduledNotificationsAsync();
     
-    // Get the translated message
-    const message = translations[languageCode as keyof typeof translations]?.message || translations.en.message;
+    // Get the translated notification text
+    const translation = translations[languageCode as keyof typeof translations];
+    const notificationBody = translation?.notificationBody || translations.en.notificationBody;
     
     // Schedule daily notification
     await Notifications.scheduleNotificationAsync({
       content: {
         title: 'Aura',
-        body: message,
+        body: notificationBody,
         sound: 'default',
         data: { type: 'daily-reminder' },
         ...(Platform.OS === 'android' && {
