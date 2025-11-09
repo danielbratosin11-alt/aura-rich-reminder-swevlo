@@ -123,9 +123,6 @@ export default function NotificationSettings({ visible, onClose }: NotificationS
               <View style={styles.settingRow}>
                 <View style={styles.settingInfo}>
                   <Text style={styles.settingLabel}>Daily Reminder</Text>
-                  <Text style={styles.settingDescription}>
-                    Receive a daily notification
-                  </Text>
                 </View>
                 <Switch
                   value={enabled}
@@ -166,13 +163,6 @@ export default function NotificationSettings({ visible, onClose }: NotificationS
                   onChange={handleTimeChange}
                 />
               )}
-
-              {/* Info Text */}
-              <View style={styles.infoContainer}>
-                <Text style={styles.infoText}>
-                  The notification will display &quot;You Are Rich Today&quot; in your selected language.
-                </Text>
-              </View>
             </View>
           </BlurView>
         </Pressable>
