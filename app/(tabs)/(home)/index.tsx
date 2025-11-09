@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Platform, Animated, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Platform, Animated, Image, TouchableOpacity, Dimensions } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts, PlayfairDisplay_400Regular, PlayfairDisplay_700Bold } from "@expo-google-fonts/playfair-display";
@@ -15,6 +15,15 @@ import { registerForPushNotificationsAsync, scheduleDailyNotification } from "@/
 const LAST_OPENED_KEY = "@aura_last_opened";
 const STREAK_KEY = "@aura_streak";
 const LANGUAGE_KEY = "@aura_language";
+
+// Get screen dimensions for responsive sizing
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+
+// Calculate responsive sizes based on screen dimensions
+const LOGO_SIZE = Math.min(SCREEN_WIDTH * 0.3, SCREEN_HEIGHT * 0.15, 150);
+const MAIN_MESSAGE_SIZE = Math.min(SCREEN_WIDTH * 0.1, 42);
+const STAT_VALUE_SIZE = Math.min(SCREEN_WIDTH * 0.1, 42);
+const INFINITY_SIZE = Math.min(SCREEN_WIDTH * 0.13, 56);
 
 export default function HomeScreen() {
   const theme = useTheme();
@@ -35,6 +44,8 @@ export default function HomeScreen() {
 
   useEffect(() => {
     console.log('HomeScreen mounted');
+    console.log('Screen dimensions:', SCREEN_WIDTH, 'x', SCREEN_HEIGHT);
+    console.log('Logo size:', LOGO_SIZE);
     
     // Load language and update date
     loadLanguageAndUpdateDate();
@@ -240,18 +251,18 @@ export default function HomeScreen() {
             },
           ]}
         >
-          {/* Logo */}
+          {/* Logo - Responsive sizing */}
           <View style={styles.logoContainer}>
             <Image 
               source={require('../../../assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg')}
-              style={styles.logo}
+              style={[styles.logo, { width: LOGO_SIZE, height: LOGO_SIZE }]}
               resizeMode="contain"
             />
           </View>
 
-          {/* Main Message */}
+          {/* Main Message - Responsive sizing */}
           <View style={styles.mainMessageContainer}>
-            <Text style={styles.mainMessage}>{message}</Text>
+            <Text style={[styles.mainMessage, { fontSize: MAIN_MESSAGE_SIZE }]}>{message}</Text>
           </View>
 
           {/* Date */}
@@ -266,13 +277,13 @@ export default function HomeScreen() {
             {/* Day Streak */}
             <View style={styles.statBox}>
               <Text style={styles.statLabel}>{dayStreakLabel}</Text>
-              <Text style={styles.statValue}>{dayStreak}</Text>
+              <Text style={[styles.statValue, { fontSize: STAT_VALUE_SIZE }]}>{dayStreak}</Text>
             </View>
 
             {/* Wealth Level */}
             <View style={styles.statBox}>
               <Text style={styles.statLabel}>{wealthLevelLabel}</Text>
-              <Text style={styles.infinitySymbol}>∞</Text>
+              <Text style={[styles.infinitySymbol, { fontSize: INFINITY_SIZE }]}>∞</Text>
             </View>
           </View>
 
@@ -309,7 +320,7 @@ const styles = StyleSheet.create({
   },
   topButtons: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 60 : 40,
+    top: 40,
     right: 20,
     flexDirection: 'row',
     gap: 15,
@@ -324,17 +335,7 @@ const styles = StyleSheet.create({
     borderColor: '#D4AF37',
     justifyContent: 'center',
     alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#D4AF37',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 4,
-      },
-    }),
+    elevation: 4,
   },
   content: {
     flex: 1,
@@ -342,31 +343,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 60,
     paddingHorizontal: 30,
-    paddingBottom: Platform.OS === 'ios' ? 60 : 40,
+    paddingBottom: 40,
   },
   logoContainer: {
     marginTop: 20,
     alignItems: 'center',
   },
   logo: {
-    width: 120,
-    height: 120,
     opacity: 0.9,
   },
   mainMessageContainer: {
     alignItems: 'center',
     marginTop: 20,
+    paddingHorizontal: 10,
   },
   mainMessage: {
     fontFamily: 'PlayfairDisplay_700Bold',
-    fontSize: 42,
     color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 2,
     textShadowColor: 'rgba(212, 175, 55, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 10,
-    lineHeight: 52,
+    lineHeight: MAIN_MESSAGE_SIZE * 1.3,
   },
   dateContainer: {
     alignItems: 'center',
@@ -382,7 +381,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontFamily: 'CormorantGaramond_300Light',
-    fontSize: 18,
+    fontSize: Math.min(SCREEN_WIDTH * 0.045, 18),
     color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 1,
@@ -404,21 +403,11 @@ const styles = StyleSheet.create({
     borderColor: '#D4AF37',
     borderRadius: 8,
     backgroundColor: 'rgba(212, 175, 55, 0.05)',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#D4AF37',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 10,
-      },
-      android: {
-        elevation: 8,
-      },
-    }),
+    elevation: 8,
   },
   statLabel: {
     fontFamily: 'CormorantGaramond_400Regular',
-    fontSize: 14,
+    fontSize: Math.min(SCREEN_WIDTH * 0.035, 14),
     color: '#D4AF37',
     textTransform: 'uppercase',
     letterSpacing: 2,
@@ -427,7 +416,6 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontFamily: 'PlayfairDisplay_700Bold',
-    fontSize: 42,
     color: '#D4AF37',
     textShadowColor: 'rgba(212, 175, 55, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
@@ -436,7 +424,6 @@ const styles = StyleSheet.create({
   },
   infinitySymbol: {
     fontFamily: 'PlayfairDisplay_700Bold',
-    fontSize: 56,
     color: '#D4AF37',
     textShadowColor: 'rgba(212, 175, 55, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
@@ -449,7 +436,7 @@ const styles = StyleSheet.create({
   },
   bottomMessage: {
     fontFamily: 'CormorantGaramond_300Light',
-    fontSize: 16,
+    fontSize: Math.min(SCREEN_WIDTH * 0.04, 16),
     color: '#D4AF37',
     fontStyle: 'italic',
     textAlign: 'center',

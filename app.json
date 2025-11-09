@@ -4,7 +4,7 @@
     "name": "Aura",
     "slug": "aura",
     "version": "1.0.0",
-    "platforms": ["ios", "android", "web"],
+    "platforms": ["android"],
     "sdkVersion": "54.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg",
@@ -19,11 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg",
         "backgroundColor": "#000000"
-      }
-    },
-    "ios": {
-      "bundleIdentifier": "com.auraapp.luxury",
-      "buildNumber": "1.0.0"
+      },
+      "permissions": []
     },
     "plugins": [
       "expo-font"
