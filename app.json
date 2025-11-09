@@ -2,81 +2,36 @@
 {
   "expo": {
     "name": "Aura",
-    "slug": "aura-luxury-app",
+    "slug": "aura",
     "version": "1.0.0",
+    "platforms": ["ios", "android"],
+    "sdkVersion": "54.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "description": "Aura - Your daily luxury reminder that you are rich. A minimalistic, elegant app designed to remind you of your wealth every single day.",
     "splash": {
       "image": "./assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.auraapp.luxury",
-      "buildNumber": "1",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false,
-        "UIBackgroundModes": ["remote-notification"],
-        "NSUserTrackingUsageDescription": "This app does not track you.",
-        "NSUserNotificationsUsageDescription": "Aura sends you daily reminders that you are rich."
-      },
-      "config": {
-        "usesNonExemptEncryption": false
-      },
-      "appStoreUrl": "https://apps.apple.com/app/aura-luxury-reminder/id123456789"
-    },
     "android": {
+      "package": "com.auraapp.luxury",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg",
         "backgroundColor": "#000000"
-      },
-      "edgeToEdgeEnabled": true,
-      "package": "com.auraapp.luxury",
-      "versionCode": 1,
-      "permissions": [
-        "RECEIVE_BOOT_COMPLETED",
-        "SCHEDULE_EXACT_ALARM",
-        "POST_NOTIFICATIONS",
-        "VIBRATE"
-      ],
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.auraapp.luxury"
+      }
     },
-    "web": {
-      "favicon": "./assets/images/final_quest_240x240.png",
-      "bundler": "metro"
+    "ios": {
+      "bundleIdentifier": "com.auraapp.luxury",
+      "buildNumber": "1.0.0"
     },
     "plugins": [
-      "expo-router",
-      "expo-font",
-      "expo-web-browser",
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg",
-          "color": "#D4AF37",
-          "defaultChannel": "aura-daily",
-          "sounds": [],
-          "enableBackgroundRemoteNotifications": false
-        }
-      ],
-      "expo-localization"
+      "expo-font"
     ],
-    "scheme": "aura",
-    "experiments": {
-      "typedRoutes": true
-    },
     "extra": {
-      "router": {
-        "origin": false
-      },
       "eas": {
         "projectId": "your-project-id-here"
       }
-    },
-    "privacy": "public"
+    }
   }
 }
