@@ -1,308 +1,308 @@
 
 export const translations = {
   en: { 
-    message: "You Are Rich Today",
+    message: "You Are Wealthy Today",
     dayStreak: "DAY STREAK",
     wealthLevel: "WEALTH LEVEL",
     becauseYouDeserve: "Because you deserve the reminder",
     notificationTitle: "Aura",
-    notificationBody: "Daily Reminder - You Are Rich"
+    notificationBody: "Daily Reminder - You Are Wealthy Today"
   },
   es: { 
-    message: "Eres Rico Hoy",
+    message: "Eres Próspero Hoy",
     dayStreak: "RACHA DE DÍAS",
     wealthLevel: "NIVEL DE RIQUEZA",
     becauseYouDeserve: "Porque te mereces el recordatorio",
     notificationTitle: "Aura",
-    notificationBody: "Recordatorio Diario - Eres Rico"
+    notificationBody: "Recordatorio Diario - Eres Próspero Hoy"
   },
   fr: { 
-    message: "Tu Es Riche Aujourd'hui",
+    message: "Tu Es Prospère Aujourd'hui",
     dayStreak: "SÉRIE DE JOURS",
     wealthLevel: "NIVEAU DE RICHESSE",
     becauseYouDeserve: "Parce que tu mérites le rappel",
     notificationTitle: "Aura",
-    notificationBody: "Rappel Quotidien - Tu Es Riche"
+    notificationBody: "Rappel Quotidien - Tu Es Prospère Aujourd'hui"
   },
   de: { 
-    message: "Du Bist Heute Reich",
+    message: "Du Bist Heute Wohlhabend",
     dayStreak: "TAGESSTRÄHNE",
     wealthLevel: "WOHLSTANDSNIVEAU",
     becauseYouDeserve: "Weil du die Erinnerung verdienst",
     notificationTitle: "Aura",
-    notificationBody: "Tägliche Erinnerung - Du Bist Reich"
+    notificationBody: "Tägliche Erinnerung - Du Bist Heute Wohlhabend"
   },
   it: { 
-    message: "Sei Ricco Oggi",
+    message: "Sei Prospero Oggi",
     dayStreak: "SERIE DI GIORNI",
     wealthLevel: "LIVELLO DI RICCHEZZA",
     becauseYouDeserve: "Perché meriti il promemoria",
     notificationTitle: "Aura",
-    notificationBody: "Promemoria Giornaliero - Sei Ricco"
+    notificationBody: "Promemoria Giornaliero - Sei Prospero Oggi"
   },
   pt: { 
-    message: "Você É Rico Hoje",
+    message: "Você É Próspero Hoje",
     dayStreak: "SEQUÊNCIA DE DIAS",
     wealthLevel: "NÍVEL DE RIQUEZA",
     becauseYouDeserve: "Porque você merece o lembrete",
     notificationTitle: "Aura",
-    notificationBody: "Lembrete Diário - Você É Rico"
+    notificationBody: "Lembrete Diário - Você É Próspero Hoje"
   },
   ru: { 
-    message: "Ты Богат Сегодня",
+    message: "Ты Процветаешь Сегодня",
     dayStreak: "ДНЕВНАЯ СЕРИЯ",
     wealthLevel: "УРОВЕНЬ БОГАТСТВА",
     becauseYouDeserve: "Потому что ты заслуживаешь напоминания",
     notificationTitle: "Aura",
-    notificationBody: "Ежедневное Напоминание - Ты Богат"
+    notificationBody: "Ежедневное Напоминание - Ты Процветаешь Сегодня"
   },
   zh: { 
-    message: "你今天很富有",
+    message: "你今天很富裕",
     dayStreak: "连续天数",
     wealthLevel: "财富水平",
     becauseYouDeserve: "因为你值得提醒",
     notificationTitle: "Aura",
-    notificationBody: "每日提醒 - 你很富有"
+    notificationBody: "每日提醒 - 你今天很富裕"
   },
   ja: { 
-    message: "あなたは今日金持ちです",
+    message: "あなたは今日裕福です",
     dayStreak: "連続日数",
     wealthLevel: "富のレベル",
     becauseYouDeserve: "あなたはリマインダーに値するから",
     notificationTitle: "Aura",
-    notificationBody: "毎日のリマインダー - あなたは金持ちです"
+    notificationBody: "毎日のリマインダー - あなたは今日裕福です"
   },
   ko: { 
-    message: "당신은 오늘 부자입니다",
+    message: "당신은 오늘 부유합니다",
     dayStreak: "연속 일수",
     wealthLevel: "부의 수준",
     becauseYouDeserve: "당신은 알림을 받을 자격이 있으니까요",
     notificationTitle: "Aura",
-    notificationBody: "일일 알림 - 당신은 부자입니다"
+    notificationBody: "일일 알림 - 당신은 오늘 부유합니다"
   },
   ar: { 
-    message: "أنت غني اليوم",
+    message: "أنت مزدهر اليوم",
     dayStreak: "سلسلة الأيام",
     wealthLevel: "مستوى الثروة",
     becauseYouDeserve: "لأنك تستحق التذكير",
     notificationTitle: "Aura",
-    notificationBody: "تذكير يومي - أنت غني"
+    notificationBody: "تذكير يومي - أنت مزدهر اليوم"
   },
   hi: { 
-    message: "आप आज अमीर हैं",
+    message: "आप आज समृद्ध हैं",
     dayStreak: "दिन की लकीर",
     wealthLevel: "धन स्तर",
     becauseYouDeserve: "क्योंकि आप अनुस्मारक के योग्य हैं",
     notificationTitle: "Aura",
-    notificationBody: "दैनिक अनुस्मारक - आप अमीर हैं"
+    notificationBody: "दैनिक अनुस्मारक - आप आज समृद्ध हैं"
   },
   bn: { 
-    message: "আপনি আজ ধনী",
+    message: "আপনি আজ সমৃদ্ধ",
     dayStreak: "দিনের ধারা",
     wealthLevel: "সম্পদ স্তর",
     becauseYouDeserve: "কারণ আপনি অনুস্মারক প্রাপ্য",
     notificationTitle: "Aura",
-    notificationBody: "দৈনিক অনুস্মারক - আপনি ধনী"
+    notificationBody: "দৈনিক অনুস্মারক - আপনি আজ সমৃদ্ধ"
   },
   pa: { 
-    message: "ਤੁਸੀਂ ਅੱਜ ਅਮੀਰ ਹੋ",
+    message: "ਤੁਸੀਂ ਅੱਜ ਸਮ੍ਰਿੱਧ ਹੋ",
     dayStreak: "ਦਿਨ ਦੀ ਲੜੀ",
     wealthLevel: "ਦੌਲਤ ਦਾ ਪੱਧਰ",
     becauseYouDeserve: "ਕਿਉਂਕਿ ਤੁਸੀਂ ਯਾਦ ਦਿਵਾਉਣ ਦੇ ਹੱਕਦਾਰ ਹੋ",
     notificationTitle: "Aura",
-    notificationBody: "ਰੋਜ਼ਾਨਾ ਯਾਦ ਦਿਵਾਉਣਾ - ਤੁਸੀਂ ਅਮੀਰ ਹੋ"
+    notificationBody: "ਰੋਜ਼ਾਨਾ ਯਾਦ ਦਿਵਾਉਣਾ - ਤੁਸੀਂ ਅੱਜ ਸਮ੍ਰਿੱਧ ਹੋ"
   },
   te: { 
-    message: "మీరు ఈరోజు ధనవంతులు",
+    message: "మీరు ఈరోజు సంపన్నులు",
     dayStreak: "రోజుల వరుస",
     wealthLevel: "సంపద స్థాయి",
     becauseYouDeserve: "మీరు రిమైండర్‌కు అర్హులు కాబట్టి",
     notificationTitle: "Aura",
-    notificationBody: "రోజువారీ రిమైండర్ - మీరు ధనవంతులు"
+    notificationBody: "రోజువారీ రిమైండర్ - మీరు ఈరోజు సంపన్నులు"
   },
   mr: { 
-    message: "तुम्ही आज श्रीमंत आहात",
+    message: "तुम्ही आज समृद्ध आहात",
     dayStreak: "दिवसांची मालिका",
     wealthLevel: "संपत्ती पातळी",
     becauseYouDeserve: "कारण तुम्ही स्मरणपत्राला पात्र आहात",
     notificationTitle: "Aura",
-    notificationBody: "दैनिक स्मरणपत्र - तुम्ही श्रीमंत आहात"
+    notificationBody: "दैनिक स्मरणपत्र - तुम्ही आज समृद्ध आहात"
   },
   ta: { 
-    message: "நீங்கள் இன்று பணக்காரர்",
+    message: "நீங்கள் இன்று செல்வந்தர்",
     dayStreak: "நாள் தொடர்",
     wealthLevel: "செல்வ நிலை",
     becauseYouDeserve: "நீங்கள் நினைவூட்டலுக்கு தகுதியானவர்",
     notificationTitle: "Aura",
-    notificationBody: "தினசரி நினைவூட்டல் - நீங்கள் பணக்காரர்"
+    notificationBody: "தினசரி நினைவூட்டல் - நீங்கள் இன்று செல்வந்தர்"
   },
   tr: { 
-    message: "Bugün Zenginsin",
+    message: "Bugün Varlıklısın",
     dayStreak: "GÜN SERİSİ",
     wealthLevel: "ZENGINLIK SEVİYESİ",
     becauseYouDeserve: "Çünkü hatırlatmayı hak ediyorsun",
     notificationTitle: "Aura",
-    notificationBody: "Günlük Hatırlatma - Zenginsin"
+    notificationBody: "Günlük Hatırlatma - Bugün Varlıklısın"
   },
   vi: { 
-    message: "Hôm Nay Bạn Giàu Có",
+    message: "Hôm Nay Bạn Thịnh Vượng",
     dayStreak: "CHUỖI NGÀY",
     wealthLevel: "MỨC ĐỘ GIÀU CÓ",
     becauseYouDeserve: "Vì bạn xứng đáng được nhắc nhở",
     notificationTitle: "Aura",
-    notificationBody: "Nhắc Nhở Hàng Ngày - Bạn Giàu Có"
+    notificationBody: "Nhắc Nhở Hàng Ngày - Hôm Nay Bạn Thịnh Vượng"
   },
   pl: { 
-    message: "Jesteś Bogaty Dzisiaj",
+    message: "Jesteś Zamożny Dzisiaj",
     dayStreak: "SERIA DNI",
     wealthLevel: "POZIOM BOGACTWA",
     becauseYouDeserve: "Bo zasługujesz na przypomnienie",
     notificationTitle: "Aura",
-    notificationBody: "Codzienne Przypomnienie - Jesteś Bogaty"
+    notificationBody: "Codzienne Przypomnienie - Jesteś Zamożny Dzisiaj"
   },
   uk: { 
-    message: "Ти Багатий Сьогодні",
+    message: "Ти Заможний Сьогодні",
     dayStreak: "СЕРІЯ ДНІВ",
     wealthLevel: "РІВЕНЬ БАГАТСТВА",
     becauseYouDeserve: "Бо ти заслуговуєш на нагадування",
     notificationTitle: "Aura",
-    notificationBody: "Щоденне Нагадування - Ти Багатий"
+    notificationBody: "Щоденне Нагадування - Ти Заможний Сьогодні"
   },
   nl: { 
-    message: "Je Bent Rijk Vandaag",
+    message: "Je Bent Welvarend Vandaag",
     dayStreak: "DAGENREEKS",
     wealthLevel: "WELVAARTSNIVEAU",
     becauseYouDeserve: "Omdat je de herinnering verdient",
     notificationTitle: "Aura",
-    notificationBody: "Dagelijkse Herinnering - Je Bent Rijk"
+    notificationBody: "Dagelijkse Herinnering - Je Bent Welvarend Vandaag"
   },
   ro: { 
-    message: "Ești Bogat Astăzi",
+    message: "Ești Prosper Astăzi",
     dayStreak: "SERIE DE ZILE",
     wealthLevel: "NIVEL DE BOGĂȚIE",
     becauseYouDeserve: "Pentru că meriți amintirea",
     notificationTitle: "Aura",
-    notificationBody: "Memento Zilnic - Ești Bogat"
+    notificationBody: "Memento Zilnic - Ești Prosper Astăzi"
   },
   el: { 
-    message: "Είσαι Πλούσιος Σήμερα",
+    message: "Είσαι Ευημερών Σήμερα",
     dayStreak: "ΣΕΙΡΑ ΗΜΕΡΩΝ",
     wealthLevel: "ΕΠΙΠΕΔΟ ΠΛΟΥΤΟΥ",
     becauseYouDeserve: "Επειδή αξίζεις την υπενθύμιση",
     notificationTitle: "Aura",
-    notificationBody: "Καθημερινή Υπενθύμιση - Είσαι Πλούσιος"
+    notificationBody: "Καθημερινή Υπενθύμιση - Είσαι Ευημερών Σήμερα"
   },
   cs: { 
-    message: "Jsi Dnes Bohatý",
+    message: "Jsi Dnes Zámožný",
     dayStreak: "SÉRIE DNÍ",
     wealthLevel: "ÚROVEŇ BOHATSTVÍ",
     becauseYouDeserve: "Protože si připomínku zasloužíš",
     notificationTitle: "Aura",
-    notificationBody: "Denní Připomínka - Jsi Bohatý"
+    notificationBody: "Denní Připomínka - Jsi Dnes Zámožný"
   },
   sv: { 
-    message: "Du Är Rik Idag",
+    message: "Du Är Välbärgad Idag",
     dayStreak: "DAGSERIE",
     wealthLevel: "VÄLSTÅNDSNIVÅ",
     becauseYouDeserve: "För att du förtjänar påminnelsen",
     notificationTitle: "Aura",
-    notificationBody: "Daglig Påminnelse - Du Är Rik"
+    notificationBody: "Daglig Påminnelse - Du Är Välbärgad Idag"
   },
   hu: { 
-    message: "Gazdag Vagy Ma",
+    message: "Jómódú Vagy Ma",
     dayStreak: "NAPI SOROZAT",
     wealthLevel: "GAZDAGSÁG SZINTJE",
     becauseYouDeserve: "Mert megérdemled az emlékeztetőt",
     notificationTitle: "Aura",
-    notificationBody: "Napi Emlékeztető - Gazdag Vagy"
+    notificationBody: "Napi Emlékeztető - Jómódú Vagy Ma"
   },
   fi: { 
-    message: "Olet Rikas Tänään",
+    message: "Olet Varakas Tänään",
     dayStreak: "PÄIVÄPUTKI",
     wealthLevel: "VARALLISUUSTASO",
     becauseYouDeserve: "Koska ansaitset muistutuksen",
     notificationTitle: "Aura",
-    notificationBody: "Päivittäinen Muistutus - Olet Rikas"
+    notificationBody: "Päivittäinen Muistutus - Olet Varakas Tänään"
   },
   no: { 
-    message: "Du Er Rik I Dag",
+    message: "Du Er Velstående I Dag",
     dayStreak: "DAGREKKE",
     wealthLevel: "VELSTANDSNIVÅ",
     becauseYouDeserve: "Fordi du fortjener påminnelsen",
     notificationTitle: "Aura",
-    notificationBody: "Daglig Påminnelse - Du Er Rik"
+    notificationBody: "Daglig Påminnelse - Du Er Velstående I Dag"
   },
   da: { 
-    message: "Du Er Rig I Dag",
+    message: "Du Er Velhavende I Dag",
     dayStreak: "DAGSERIE",
     wealthLevel: "VELSTANDSNIVEAU",
     becauseYouDeserve: "Fordi du fortjener påmindelsen",
     notificationTitle: "Aura",
-    notificationBody: "Daglig Påmindelse - Du Er Rig"
+    notificationBody: "Daglig Påmindelse - Du Er Velhavende I Dag"
   },
   th: { 
-    message: "วันนี้คุณรวย",
+    message: "วันนี้คุณมั่งคั่ง",
     dayStreak: "ลำดับวัน",
     wealthLevel: "ระดับความมั่งคั่ง",
     becauseYouDeserve: "เพราะคุณสมควรได้รับการเตือน",
     notificationTitle: "Aura",
-    notificationBody: "การเตือนรายวัน - คุณรวย"
+    notificationBody: "การเตือนรายวัน - วันนี้คุณมั่งคั่ง"
   },
   id: { 
-    message: "Kamu Kaya Hari Ini",
+    message: "Kamu Makmur Hari Ini",
     dayStreak: "RENTETAN HARI",
     wealthLevel: "TINGKAT KEKAYAAN",
     becauseYouDeserve: "Karena kamu pantas mendapat pengingat",
     notificationTitle: "Aura",
-    notificationBody: "Pengingat Harian - Kamu Kaya"
+    notificationBody: "Pengingat Harian - Kamu Makmur Hari Ini"
   },
   ms: { 
-    message: "Anda Kaya Hari Ini",
+    message: "Anda Makmur Hari Ini",
     dayStreak: "RENTETAN HARI",
     wealthLevel: "TAHAP KEKAYAAN",
     becauseYouDeserve: "Kerana anda layak mendapat peringatan",
     notificationTitle: "Aura",
-    notificationBody: "Peringatan Harian - Anda Kaya"
+    notificationBody: "Peringatan Harian - Anda Makmur Hari Ini"
   },
   fil: { 
-    message: "Mayaman Ka Ngayon",
+    message: "Matagumpay Ka Ngayon",
     dayStreak: "SUNOD-SUNOD NA ARAW",
     wealthLevel: "ANTAS NG YAMAN",
     becauseYouDeserve: "Dahil karapat-dapat ka sa paalala",
     notificationTitle: "Aura",
-    notificationBody: "Pang-araw-araw na Paalala - Mayaman Ka"
+    notificationBody: "Pang-araw-araw na Paalala - Matagumpay Ka Ngayon"
   },
   he: { 
-    message: "אתה עשיר היום",
+    message: "אתה משגשג היום",
     dayStreak: "רצף ימים",
     wealthLevel: "רמת עושר",
     becauseYouDeserve: "כי אתה ראוי לתזכורת",
     notificationTitle: "Aura",
-    notificationBody: "תזכורת יומית - אתה עשיר"
+    notificationBody: "תזכורת יומית - אתה משגשג היום"
   },
   fa: { 
-    message: "امروز ثروتمند هستی",
+    message: "امروز مرفه هستی",
     dayStreak: "رشته روزها",
     wealthLevel: "سطح ثروت",
     becauseYouDeserve: "چون شایسته یادآوری هستی",
     notificationTitle: "Aura",
-    notificationBody: "یادآوری روزانه - ثروتمند هستی"
+    notificationBody: "یادآوری روزانه - امروز مرفه هستی"
   },
   ur: { 
-    message: "آج آپ امیر ہیں",
+    message: "آج آپ خوشحال ہیں",
     dayStreak: "دن کی لکیر",
     wealthLevel: "دولت کی سطح",
     becauseYouDeserve: "کیونکہ آپ یاد دہانی کے مستحق ہیں",
     notificationTitle: "Aura",
-    notificationBody: "روزانہ یاد دہانی - آپ امیر ہیں"
+    notificationBody: "روزانہ یاد دہانی - آج آپ خوشحال ہیں"
   },
   sw: { 
-    message: "Wewe Ni Tajiri Leo",
+    message: "Wewe Una Ustawi Leo",
     dayStreak: "MFULULIZO WA SIKU",
     wealthLevel: "KIWANGO CHA UTAJIRI",
     becauseYouDeserve: "Kwa sababu unastahili ukumbusho",
     notificationTitle: "Aura",
-    notificationBody: "Ukumbusho wa Kila Siku - Wewe Ni Tajiri"
+    notificationBody: "Ukumbusho wa Kila Siku - Wewe Una Ustawi Leo"
   },
   am: { 
     message: "ዛሬ ሀብታም ነህ",
@@ -310,7 +310,7 @@ export const translations = {
     wealthLevel: "የሀብት ደረጃ",
     becauseYouDeserve: "ማስታወሻውን ስለምትገባ",
     notificationTitle: "Aura",
-    notificationBody: "የዕለት ማስታወሻ - ሀብታም ነህ"
+    notificationBody: "የዕለት ማስታወሻ - ዛሬ ሀብታም ነህ"
   },
   zu: { 
     message: "Unocebi Namuhla",
@@ -318,15 +318,15 @@ export const translations = {
     wealthLevel: "IZINGA LENGCEBO",
     becauseYouDeserve: "Ngoba ufanele isikhumbuzo",
     notificationTitle: "Aura",
-    notificationBody: "Isikhumbuzo Sansuku Zonke - Unocebi"
+    notificationBody: "Isikhumbuzo Sansuku Zonke - Unocebi Namuhla"
   },
   af: { 
-    message: "Jy Is Vandag Ryk",
+    message: "Jy Is Welvarend Vandag",
     dayStreak: "DAGREEKS",
     wealthLevel: "WELVAARTSVLAK",
     becauseYouDeserve: "Want jy verdien die herinnering",
     notificationTitle: "Aura",
-    notificationBody: "Daaglikse Herinnering - Jy Is Ryk"
+    notificationBody: "Daaglikse Herinnering - Jy Is Welvarend Vandag"
   },
   sq: { 
     message: "Je I Pasur Sot",
@@ -334,23 +334,23 @@ export const translations = {
     wealthLevel: "NIVELI I PASURISË",
     becauseYouDeserve: "Sepse meriton kujtesën",
     notificationTitle: "Aura",
-    notificationBody: "Kujtesë Ditore - Je I Pasur"
+    notificationBody: "Kujtesë Ditore - Je I Pasur Sot"
   },
   hy: { 
-    message: "Դու Հարուստ Ես Այսօր",
+    message: "Դու Բարգավաճ Ես Այսօր",
     dayStreak: "ՕՐԵՐԻ ՇԱՐՔ",
     wealthLevel: "ՀԱՐՍՏՈՒԹՅԱՆ ՄԱԿԱՐԴԱԿ",
     becauseYouDeserve: "Որովհետև արժանի ես հիշեցմանը",
     notificationTitle: "Aura",
-    notificationBody: "Ամենօրյա Հիշեցում - Դու Հարուստ Ես"
+    notificationBody: "Ամենօրյա Հիշեցում - Դու Բարգավաճ Ես Այսօր"
   },
   az: { 
-    message: "Bu Gün Zənginsən",
+    message: "Bu Gün Firavan Sən",
     dayStreak: "GÜN SERİYASI",
     wealthLevel: "ZƏNGINLIK SƏVIYYƏSI",
     becauseYouDeserve: "Çünki xatırlatmağa layiqsən",
     notificationTitle: "Aura",
-    notificationBody: "Gündəlik Xatırlatma - Zənginsən"
+    notificationBody: "Gündəlik Xatırlatma - Bu Gün Firavan Sən"
   },
   eu: { 
     message: "Aberatsa Zara Gaur",
@@ -358,15 +358,15 @@ export const translations = {
     wealthLevel: "ABERASTASUN MAILA",
     becauseYouDeserve: "Oroigarria merezi duzulako",
     notificationTitle: "Aura",
-    notificationBody: "Eguneroko Oroigarria - Aberatsa Zara"
+    notificationBody: "Eguneroko Oroigarria - Aberatsa Zara Gaur"
   },
   be: { 
-    message: "Ты Багаты Сёння",
+    message: "Ты Заможны Сёння",
     dayStreak: "СЕРЫЯ ДЗЁН",
     wealthLevel: "УЗРОВЕНЬ БАГАЦЦЯ",
     becauseYouDeserve: "Бо ты заслугоўваеш нагадвання",
     notificationTitle: "Aura",
-    notificationBody: "Штодзённае Нагадванне - Ты Багаты"
+    notificationBody: "Штодзённае Нагадванне - Ты Заможны Сёння"
   },
   bs: { 
     message: "Bogat Si Danas",
@@ -374,23 +374,23 @@ export const translations = {
     wealthLevel: "NIVO BOGATSTVA",
     becauseYouDeserve: "Jer zaslužuješ podsjetnik",
     notificationTitle: "Aura",
-    notificationBody: "Dnevni Podsjetnik - Bogat Si"
+    notificationBody: "Dnevni Podsjetnik - Bogat Si Danas"
   },
   bg: { 
-    message: "Богат Си Днес",
+    message: "Благоденстващ Си Днес",
     dayStreak: "ПОРЕДИЦА ОТ ДНИ",
     wealthLevel: "НИВО НА БОГАТСТВО",
     becauseYouDeserve: "Защото заслужаваш напомнянето",
     notificationTitle: "Aura",
-    notificationBody: "Ежедневно Напомняне - Богат Си"
+    notificationBody: "Ежедневно Напомняне - Благоденстващ Си Днес"
   },
   ca: { 
-    message: "Ets Ric Avui",
+    message: "Ets Pròsper Avui",
     dayStreak: "SÈRIE DE DIES",
     wealthLevel: "NIVELL DE RIQUESA",
     becauseYouDeserve: "Perquè et mereixes el recordatori",
     notificationTitle: "Aura",
-    notificationBody: "Recordatori Diari - Ets Ric"
+    notificationBody: "Recordatori Diari - Ets Pròsper Avui"
   },
   hr: { 
     message: "Bogat Si Danas",
@@ -398,39 +398,39 @@ export const translations = {
     wealthLevel: "RAZINA BOGATSTVA",
     becauseYouDeserve: "Jer zaslužuješ podsjetnik",
     notificationTitle: "Aura",
-    notificationBody: "Dnevni Podsjetnik - Bogat Si"
+    notificationBody: "Dnevni Podsjetnik - Bogat Si Danas"
   },
   et: { 
-    message: "Sa Oled Täna Rikas",
+    message: "Sa Oled Täna Jõukas",
     dayStreak: "PÄEVADE SEERIA",
     wealthLevel: "JÕUKUSE TASE",
     becauseYouDeserve: "Sest sa väärid meeldetuletust",
     notificationTitle: "Aura",
-    notificationBody: "Igapäevane Meeldetuletus - Sa Oled Rikas"
+    notificationBody: "Igapäevane Meeldetuletus - Sa Oled Täna Jõukas"
   },
   ka: { 
-    message: "შენ მდიდარი ხარ დღეს",
+    message: "შენ კეთილდღეობ დღეს",
     dayStreak: "დღეების სერია",
     wealthLevel: "სიმდიდრის დონე",
     becauseYouDeserve: "რადგან შენ იმსახურებ შეხსენებას",
     notificationTitle: "Aura",
-    notificationBody: "ყოველდღიური შეხსენება - შენ მდიდარი ხარ"
+    notificationBody: "ყოველდღიური შეხსენება - შენ კეთილდღეობ დღეს"
   },
   gl: { 
-    message: "Es Rico Hoxe",
+    message: "Es Próspero Hoxe",
     dayStreak: "SERIE DE DÍAS",
     wealthLevel: "NIVEL DE RIQUEZA",
     becauseYouDeserve: "Porque mereces o recordatorio",
     notificationTitle: "Aura",
-    notificationBody: "Recordatorio Diario - Es Rico"
+    notificationBody: "Recordatorio Diario - Es Próspero Hoxe"
   },
   gu: { 
-    message: "તમે આજે શ્રીમંત છો",
+    message: "તમે આજે સમૃદ્ધ છો",
     dayStreak: "દિવસની શ્રેણી",
     wealthLevel: "સંપત્તિ સ્તર",
     becauseYouDeserve: "કારણ કે તમે રીમાઇન્ડરને પાત્ર છો",
     notificationTitle: "Aura",
-    notificationBody: "દૈનિક રીમાઇન્ડર - તમે શ્રીમંત છો"
+    notificationBody: "દૈનિક રીમાઇન્ડર - તમે આજે સમૃદ્ધ છો"
   },
   ha: { 
     message: "Kai Attajiri Ne Yau",
@@ -438,15 +438,15 @@ export const translations = {
     wealthLevel: "MATAKIN DUKIYA",
     becauseYouDeserve: "Domin ka cancanci tunatarwa",
     notificationTitle: "Aura",
-    notificationBody: "Tunatarwa Ta Yau Da Kullum - Kai Attajiri Ne"
+    notificationBody: "Tunatarwa Ta Yau Da Kullum - Kai Attajiri Ne Yau"
   },
   is: { 
-    message: "Þú Ert Ríkur Í Dag",
+    message: "Þú Ert Efnaður Í Dag",
     dayStreak: "DAGASTRENGUR",
     wealthLevel: "AUÐSSTIG",
     becauseYouDeserve: "Vegna þess að þú átt skilið áminninguna",
     notificationTitle: "Aura",
-    notificationBody: "Dagleg Áminnning - Þú Ert Ríkur"
+    notificationBody: "Dagleg Áminnning - Þú Ert Efnaður Í Dag"
   },
   ig: { 
     message: "Ị Bụ Ọgaranya Taa",
@@ -454,7 +454,7 @@ export const translations = {
     wealthLevel: "ỌKỌ AKỤNỤBA",
     becauseYouDeserve: "N'ihi na ị kwesịrị ncheta",
     notificationTitle: "Aura",
-    notificationBody: "Ncheta Kwa Ụbọchị - Ị Bụ Ọgaranya"
+    notificationBody: "Ncheta Kwa Ụbọchị - Ị Bụ Ọgaranya Taa"
   },
   ga: { 
     message: "Tá Tú Saibhir Inniu",
@@ -462,23 +462,23 @@ export const translations = {
     wealthLevel: "LEIBHÉAL SAIBHRIS",
     becauseYouDeserve: "Toisc go bhfuil an meabhrúchán tuillte agat",
     notificationTitle: "Aura",
-    notificationBody: "Meabhrúchán Laethúil - Tá Tú Saibhir"
+    notificationBody: "Meabhrúchán Laethúil - Tá Tú Saibhir Inniu"
   },
   jv: { 
-    message: "Sampeyan Sugih Dina Iki",
+    message: "Sampeyan Makmur Dina Iki",
     dayStreak: "URUTAN DINA",
     wealthLevel: "TINGKAT KASUGIHAN",
     becauseYouDeserve: "Amarga sampeyan pantes dieling-eling",
     notificationTitle: "Aura",
-    notificationBody: "Pangeling-eling Saben Dina - Sampeyan Sugih"
+    notificationBody: "Pangeling-eling Saben Dina - Sampeyan Makmur Dina Iki"
   },
   kn: { 
-    message: "ನೀವು ಇಂದು ಶ್ರೀಮಂತರು",
+    message: "ನೀವು ಇಂದು ಸಮೃದ್ಧರು",
     dayStreak: "ದಿನಗಳ ಸರಣಿ",
     wealthLevel: "ಸಂಪತ್ತಿನ ಮಟ್ಟ",
     becauseYouDeserve: "ನೀವು ಜ್ಞಾಪನೆಗೆ ಅರ್ಹರಾಗಿರುವುದರಿಂದ",
     notificationTitle: "Aura",
-    notificationBody: "ದೈನಂದಿನ ಜ್ಞಾಪನೆ - ನೀವು ಶ್ರೀಮಂತರು"
+    notificationBody: "ದೈನಂದಿನ ಜ್ಞಾಪನೆ - ನೀವು ಇಂದು ಸಮೃದ್ಧರು"
   },
   kk: { 
     message: "Сіз Бүгін Байсыз",
@@ -486,7 +486,7 @@ export const translations = {
     wealthLevel: "БАЙЛЫҚ ДЕҢГЕЙІ",
     becauseYouDeserve: "Себебі сіз еске салуға лайықсыз",
     notificationTitle: "Aura",
-    notificationBody: "Күнделікті Еске Салу - Сіз Байсыз"
+    notificationBody: "Күнделікті Еске Салу - Сіз Бүгін Байсыз"
   },
   km: { 
     message: "អ្នកមានថ្ងៃនេះ",
@@ -494,7 +494,7 @@ export const translations = {
     wealthLevel: "កម្រិតទ្រព្យសម្បត្តិ",
     becauseYouDeserve: "ព្រោះអ្នកសមនឹងការរំលឹក",
     notificationTitle: "Aura",
-    notificationBody: "ការរំលឹកប្រចាំថ្ងៃ - អ្នកមាន"
+    notificationBody: "ការរំលឹកប្រចាំថ្ងៃ - អ្នកមានថ្ងៃនេះ"
   },
   ky: { 
     message: "Сиз Бүгүн Байсыз",
@@ -502,7 +502,7 @@ export const translations = {
     wealthLevel: "БАЙЛЫК ДЕҢГЭЭЛИ",
     becauseYouDeserve: "Себеби сиз эскертүүгө татыктуусуз",
     notificationTitle: "Aura",
-    notificationBody: "Күнүмдүк Эскертүү - Сиз Байсыз"
+    notificationBody: "Күнүмдүк Эскертүү - Сиз Бүгүн Байсыз"
   },
   lo: { 
     message: "ທ່ານຮັ່ງມີໃນມື້ນີ້",
@@ -510,15 +510,15 @@ export const translations = {
     wealthLevel: "ລະດັບຄວາມຮັ່ງມີ",
     becauseYouDeserve: "ເພາະວ່າທ່ານສົມຄວນໄດ້ຮັບການເຕືອນ",
     notificationTitle: "Aura",
-    notificationBody: "ການເຕືອນປະຈໍາວັນ - ທ່ານຮັ່ງມີ"
+    notificationBody: "ການເຕືອນປະຈໍາວັນ - ທ່ານຮັ່ງມີໃນມື້ນີ້"
   },
   lv: { 
-    message: "Tu Esi Bagāts Šodien",
+    message: "Tu Esi Turīgs Šodien",
     dayStreak: "DIENU SĒRIJA",
     wealthLevel: "BAGĀTĪBAS LĪMENIS",
     becauseYouDeserve: "Jo tu pelni atgādinājumu",
     notificationTitle: "Aura",
-    notificationBody: "Ikdienas Atgādinājums - Tu Esi Bagāts"
+    notificationBody: "Ikdienas Atgādinājums - Tu Esi Turīgs Šodien"
   },
   lt: { 
     message: "Tu Turtingas Šiandien",
@@ -526,7 +526,7 @@ export const translations = {
     wealthLevel: "TURTO LYGIS",
     becauseYouDeserve: "Nes nusipelnei priminimo",
     notificationTitle: "Aura",
-    notificationBody: "Kasdieninis Priminimas - Tu Turtingas"
+    notificationBody: "Kasdieninis Priminimas - Tu Turtingas Šiandien"
   },
   lb: { 
     message: "Du Bass Räich Haut",
@@ -534,7 +534,7 @@ export const translations = {
     wealthLevel: "RÄICHTUMSNIVEAU",
     becauseYouDeserve: "Well du d'Erënnerung verdéngs",
     notificationTitle: "Aura",
-    notificationBody: "Deeglech Erënnerung - Du Bass Räich"
+    notificationBody: "Deeglech Erënnerung - Du Bass Räich Haut"
   },
   mk: { 
     message: "Богат Си Денес",
@@ -542,7 +542,7 @@ export const translations = {
     wealthLevel: "НИВО НА БОГАТСТВО",
     becauseYouDeserve: "Бидејќи заслужуваш потсетник",
     notificationTitle: "Aura",
-    notificationBody: "Дневен Потсетник - Богат Си"
+    notificationBody: "Дневен Потсетник - Богат Си Денес"
   },
   mg: { 
     message: "Manan-karena Ianao Androany",
@@ -550,7 +550,7 @@ export const translations = {
     wealthLevel: "HAAVON'NY HARENA",
     becauseYouDeserve: "Satria mendrika ny fampahatsiahivana ianao",
     notificationTitle: "Aura",
-    notificationBody: "Fampahatsiahivana Isan'andro - Manan-karena Ianao"
+    notificationBody: "Fampahatsiahivana Isan'andro - Manan-karena Ianao Androany"
   },
   ml: { 
     message: "നിങ്ങൾ ഇന്ന് സമ്പന്നനാണ്",
@@ -558,7 +558,7 @@ export const translations = {
     wealthLevel: "സമ്പത്ത് നില",
     becauseYouDeserve: "നിങ്ങൾ ഓർമ്മപ്പെടുത്തലിന് അർഹനാണ്",
     notificationTitle: "Aura",
-    notificationBody: "ദൈനംദിന ഓർമ്മപ്പെടുത്തൽ - നിങ്ങൾ സമ്പന്നനാണ്"
+    notificationBody: "ദൈനംദിന ഓർമ്മപ്പെടുത്തൽ - നിങ്ങൾ ഇന്ന് സമ്പന്നനാണ്"
   },
   mt: { 
     message: "Int Sinjur Illum",
@@ -566,7 +566,7 @@ export const translations = {
     wealthLevel: "LIVELL TA' ĠID",
     becauseYouDeserve: "Għax tixirqillek it-tifkira",
     notificationTitle: "Aura",
-    notificationBody: "Tifkira Kuljum - Int Sinjur"
+    notificationBody: "Tifkira Kuljum - Int Sinjur Illum"
   },
   mi: { 
     message: "He Taonga Koe I Tenei Ra",
@@ -574,7 +574,7 @@ export const translations = {
     wealthLevel: "TAUMATA TAONGA",
     becauseYouDeserve: "Nō te mea kei a koe te tika ki te whakamaumahara",
     notificationTitle: "Aura",
-    notificationBody: "Whakamaumahara Ia Rā - He Taonga Koe"
+    notificationBody: "Whakamaumahara Ia Rā - He Taonga Koe I Tenei Ra"
   },
   mn: { 
     message: "Та Өнөөдөр Баян",
@@ -582,7 +582,7 @@ export const translations = {
     wealthLevel: "БАЯЛГИЙН ТҮВШИН",
     becauseYouDeserve: "Учир нь та сануулга авах ёстой",
     notificationTitle: "Aura",
-    notificationBody: "Өдөр Бүрийн Сануулга - Та Баян"
+    notificationBody: "Өдөр Бүрийн Сануулга - Та Өнөөдөр Баян"
   },
   my: { 
     message: "ဒီနေ့ သင်ချမ်းသာတယ်",
@@ -590,7 +590,7 @@ export const translations = {
     wealthLevel: "ချမ်းသာမှုအဆင့်",
     becauseYouDeserve: "သင်သတိပေးချက်ကို ထိုက်တန်သောကြောင့်",
     notificationTitle: "Aura",
-    notificationBody: "နေ့စဉ်သတိပေးချက် - သင်ချမ်းသာတယ်"
+    notificationBody: "နေ့စဉ်သတိပေးချက် - ဒီနေ့ သင်ချမ်းသာတယ်"
   },
   ne: { 
     message: "तपाईं आज धनी हुनुहुन्छ",
@@ -598,7 +598,7 @@ export const translations = {
     wealthLevel: "धन स्तर",
     becauseYouDeserve: "किनभने तपाईं सम्झनाको योग्य हुनुहुन्छ",
     notificationTitle: "Aura",
-    notificationBody: "दैनिक सम्झना - तपाईं धनी हुनुहुन्छ"
+    notificationBody: "दैनिक सम्झना - तपाईं आज धनी हुनुहुन्छ"
   },
   or: { 
     message: "ଆପଣ ଆଜି ଧନୀ",
@@ -606,7 +606,7 @@ export const translations = {
     wealthLevel: "ଧନ ସ୍ତର",
     becauseYouDeserve: "କାରଣ ଆପଣ ସ୍ମରଣ ପାଇଁ ଯୋଗ୍ୟ",
     notificationTitle: "Aura",
-    notificationBody: "ଦୈନିକ ସ୍ମରଣ - ଆପଣ ଧନୀ"
+    notificationBody: "ଦୈନିକ ସ୍ମରଣ - ଆପଣ ଆଜି ଧନୀ"
   },
   ps: { 
     message: "تاسو نن بډایه یاست",
@@ -614,7 +614,7 @@ export const translations = {
     wealthLevel: "د شتمنۍ کچه",
     becauseYouDeserve: "ځکه چې تاسو یادونې مستحق یاست",
     notificationTitle: "Aura",
-    notificationBody: "ورځنۍ یادونه - تاسو بډایه یاست"
+    notificationBody: "ورځنۍ یادونه - تاسو نن بډایه یاست"
   },
   si: { 
     message: "ඔබ අද ධනවත්",
@@ -622,23 +622,23 @@ export const translations = {
     wealthLevel: "ධන මට්ටම",
     becauseYouDeserve: "ඔබ මතක් කිරීමට සුදුසු නිසා",
     notificationTitle: "Aura",
-    notificationBody: "දෛනික මතක් කිරීම - ඔබ ධනවත්"
+    notificationBody: "දෛනික මතක් කිරීම - ඔබ අද ධනවත්"
   },
   sk: { 
-    message: "Si Dnes Bohatý",
+    message: "Si Dnes Zámožný",
     dayStreak: "SÉRIA DNÍ",
     wealthLevel: "ÚROVEŇ BOHATSTVA",
     becauseYouDeserve: "Pretože si pripomienku zaslúžiš",
     notificationTitle: "Aura",
-    notificationBody: "Denná Pripomienka - Si Bohatý"
+    notificationBody: "Denná Pripomienka - Si Dnes Zámožný"
   },
   sl: { 
-    message: "Danes Si Bogat",
+    message: "Danes Si Premožen",
     dayStreak: "ZAPOREDJE DNI",
     wealthLevel: "RAVEN BOGASTVA",
     becauseYouDeserve: "Ker si zaslužiš opomnik",
     notificationTitle: "Aura",
-    notificationBody: "Dnevni Opomnik - Danes Si Bogat"
+    notificationBody: "Dnevni Opomnik - Danes Si Premožen"
   },
   so: { 
     message: "Maanta Waxaad Tahay Taajir",
@@ -646,7 +646,7 @@ export const translations = {
     wealthLevel: "HEERKA HANTIDA",
     becauseYouDeserve: "Maxaa yeelay waxaad mudan tahay xusuusinta",
     notificationTitle: "Aura",
-    notificationBody: "Xusuusinta Maalinlaha - Waxaad Tahay Taajir"
+    notificationBody: "Xusuusinta Maalinlaha - Maanta Waxaad Tahay Taajir"
   },
   sr: { 
     message: "Богат Си Данас",
@@ -654,15 +654,15 @@ export const translations = {
     wealthLevel: "НИВО БОГАТСТВА",
     becauseYouDeserve: "Јер заслужујеш подсетник",
     notificationTitle: "Aura",
-    notificationBody: "Дневни Подсетник - Богат Си"
+    notificationBody: "Дневни Подсетник - Богат Си Данас"
   },
   su: { 
-    message: "Anjeun Beunghar Dinten Ieu",
+    message: "Anjeun Makmur Dinten Ieu",
     dayStreak: "RUNTUYAN POEAN",
     wealthLevel: "TINGKAT KABEUNGHARAN",
     becauseYouDeserve: "Kusabab anjeun pantes dipikanyaah",
     notificationTitle: "Aura",
-    notificationBody: "Pangeling Unggal Poé - Anjeun Beunghar"
+    notificationBody: "Pangeling Unggal Poé - Anjeun Makmur Dinten Ieu"
   },
   tg: { 
     message: "Шумо Имрӯз Бой Ҳастед",
@@ -670,7 +670,7 @@ export const translations = {
     wealthLevel: "САТҲИ БОИГАРӢ",
     becauseYouDeserve: "Чунки шумо ба ёдоварӣ сазовор ҳастед",
     notificationTitle: "Aura",
-    notificationBody: "Ёдоварии Ҳаррӯза - Шумо Бой Ҳастед"
+    notificationBody: "Ёдоварии Ҳаррӯза - Шумо Имрӯз Бой Ҳастед"
   },
   uz: { 
     message: "Siz Bugun Boysiz",
@@ -678,15 +678,15 @@ export const translations = {
     wealthLevel: "BOYLIK DARAJASI",
     becauseYouDeserve: "Chunki siz eslatmaga loyiqsiz",
     notificationTitle: "Aura",
-    notificationBody: "Kundalik Eslatma - Siz Boysiz"
+    notificationBody: "Kundalik Eslatma - Siz Bugun Boysiz"
   },
   cy: { 
-    message: "Rydych Chi'n Gyfoethog Heddiw",
+    message: "Rydych Chi'n Gefnog Heddiw",
     dayStreak: "CYFRES DYDDIAU",
     wealthLevel: "LEFEL CYFOETH",
     becauseYouDeserve: "Oherwydd rydych chi'n haeddu'r atgof",
     notificationTitle: "Aura",
-    notificationBody: "Atgof Dyddiol - Rydych Chi'n Gyfoethog"
+    notificationBody: "Atgof Dyddiol - Rydych Chi'n Gefnog Heddiw"
   },
   xh: { 
     message: "Usisityebi Namhlanje",
@@ -694,7 +694,7 @@ export const translations = {
     wealthLevel: "INQANABA LOBUTYEBI",
     becauseYouDeserve: "Kuba ufanelekile isikhumbuzo",
     notificationTitle: "Aura",
-    notificationBody: "Isikhumbuzo Semihla Ngemihla - Usisityebi"
+    notificationBody: "Isikhumbuzo Semihla Ngemihla - Usisityebi Namhlanje"
   },
   yi: { 
     message: "איר זענט רייך הייַנט",
@@ -702,7 +702,7 @@ export const translations = {
     wealthLevel: "עשירות ניוואָ",
     becauseYouDeserve: "ווייַל איר פאַרדינען די דערמאָנונג",
     notificationTitle: "Aura",
-    notificationBody: "טעגלעך דערמאָנונג - איר זענט רייך"
+    notificationBody: "טעגלעך דערמאָנונג - איר זענט רייך הייַנט"
   },
   yo: { 
     message: "O Jẹ Ọlọrọ Loni",
@@ -710,7 +710,7 @@ export const translations = {
     wealthLevel: "IPELE ỌRỌ",
     becauseYouDeserve: "Nitori o yẹ fun iranti",
     notificationTitle: "Aura",
-    notificationBody: "Iranti Ojoojumọ - O Jẹ Ọlọrọ"
+    notificationBody: "Iranti Ojoojumọ - O Jẹ Ọlọrọ Loni"
   },
   sn: { 
     message: "Uri Mupfumi Nhasi",
@@ -718,7 +718,7 @@ export const translations = {
     wealthLevel: "CHIYERO CHEPFUMA",
     becauseYouDeserve: "Nekuti unofanirwa kuyeuchidza",
     notificationTitle: "Aura",
-    notificationBody: "Kuyeuchidza Kwezuva Nezuva - Uri Mupfumi"
+    notificationBody: "Kuyeuchidza Kwezuva Nezuva - Uri Mupfumi Nhasi"
   },
   sd: { 
     message: "اڄ تون امير آهين",
@@ -726,7 +726,7 @@ export const translations = {
     wealthLevel: "دولت جي سطح",
     becauseYouDeserve: "ڇو ته توهان ياد ڏياريندڙ جا مستحق آهيو",
     notificationTitle: "Aura",
-    notificationBody: "روزانو ياد ڏياريندڙ - تون امير آهين"
+    notificationBody: "روزانو ياد ڏياريندڙ - اڄ تون امير آهين"
   },
   ht: { 
     message: "Ou Rich Jodi A",
@@ -734,7 +734,7 @@ export const translations = {
     wealthLevel: "NIVO RICHÈS",
     becauseYouDeserve: "Paske ou merite rapèl la",
     notificationTitle: "Aura",
-    notificationBody: "Rapèl Chak Jou - Ou Rich"
+    notificationBody: "Rapèl Chak Jou - Ou Rich Jodi A"
   },
   ku: { 
     message: "Tu Îro Dewlemend Î",
@@ -742,7 +742,7 @@ export const translations = {
     wealthLevel: "ASTA DEWLEMENDIYÊ",
     becauseYouDeserve: "Ji ber ku tu şayî bîranînê yî",
     notificationTitle: "Aura",
-    notificationBody: "Bîranîna Rojane - Tu Dewlemend Î"
+    notificationBody: "Bîranîna Rojane - Tu Îro Dewlemend Î"
   },
   la: { 
     message: "Hodie Dives Es",
@@ -750,7 +750,7 @@ export const translations = {
     wealthLevel: "GRADUS DIVITIARUM",
     becauseYouDeserve: "Quia mones dignus es",
     notificationTitle: "Aura",
-    notificationBody: "Monitio Cotidiana - Dives Es"
+    notificationBody: "Monitio Cotidiana - Hodie Dives Es"
   },
   gd: { 
     message: "Tha Thu Beairteach An-diugh",
@@ -758,7 +758,7 @@ export const translations = {
     wealthLevel: "ÌRE BEAIRTEIS",
     becauseYouDeserve: "Oir tha thu airidh air a' chuimhneachan",
     notificationTitle: "Aura",
-    notificationBody: "Cuimhneachan Làitheil - Tha Thu Beairteach"
+    notificationBody: "Cuimhneachan Làitheil - Tha Thu Beairteach An-diugh"
   },
   sm: { 
     message: "E Mauoa Oe I Le Aso",
@@ -766,7 +766,7 @@ export const translations = {
     wealthLevel: "TULAGA O LE MAUOA",
     becauseYouDeserve: "Aua e tatau ona e manatua",
     notificationTitle: "Aura",
-    notificationBody: "Fa'amanatu I Aso Uma - E Mauoa Oe"
+    notificationBody: "Fa'amanatu I Aso Uma - E Mauoa Oe I Le Aso"
   },
   st: { 
     message: "U Ruileng Kajeno",
@@ -774,7 +774,7 @@ export const translations = {
     wealthLevel: "BOEMO BA LERUO",
     becauseYouDeserve: "Hobane u tšoaneloa ke hopotso",
     notificationTitle: "Aura",
-    notificationBody: "Hopotso ea Letsatsi Le Leng Le Le Leng - U Ruileng"
+    notificationBody: "Hopotso ea Letsatsi Le Leng Le Le Leng - U Ruileng Kajeno"
   },
   ceb: { 
     message: "Dato Ka Karon",
@@ -782,7 +782,7 @@ export const translations = {
     wealthLevel: "ANG-ANG SA BAHANDI",
     becauseYouDeserve: "Kay angay ka sa pahinumdom",
     notificationTitle: "Aura",
-    notificationBody: "Adlaw-adlaw nga Pahinumdom - Dato Ka"
+    notificationBody: "Adlaw-adlaw nga Pahinumdom - Dato Ka Karon"
   },
   ny: { 
     message: "Muli Olemera Lero",
@@ -790,7 +790,7 @@ export const translations = {
     wealthLevel: "MLINGO WA CHUMA",
     becauseYouDeserve: "Chifukwa muyenera kukumbutsidwa",
     notificationTitle: "Aura",
-    notificationBody: "Chikumbutso Cha Tsiku Ndi Tsiku - Muli Olemera"
+    notificationBody: "Chikumbutso Cha Tsiku Ndi Tsiku - Muli Olemera Lero"
   },
   co: { 
     message: "Site Riccu Oghje",
@@ -798,7 +798,7 @@ export const translations = {
     wealthLevel: "LIVELLU DI RICCHEZZA",
     becauseYouDeserve: "Perchè meritate u ricordu",
     notificationTitle: "Aura",
-    notificationBody: "Ricordu Cutidianu - Site Riccu"
+    notificationBody: "Ricordu Cutidianu - Site Riccu Oghje"
   },
   fy: { 
     message: "Jo Binne Ryk Hjoed",
@@ -806,7 +806,7 @@ export const translations = {
     wealthLevel: "RYKDOMSNIVO",
     becauseYouDeserve: "Om't jo de herinnering fertsjinje",
     notificationTitle: "Aura",
-    notificationBody: "Deistige Herinnering - Jo Binne Ryk"
+    notificationBody: "Deistige Herinnering - Jo Binne Ryk Hjoed"
   },
   hmn: { 
     message: "Koj Nplua Nuj Hnub No",
@@ -814,15 +814,15 @@ export const translations = {
     wealthLevel: "QHOV NPLUA NUJ",
     becauseYouDeserve: "Vim koj tsim nyog tau nco",
     notificationTitle: "Aura",
-    notificationBody: "Txhua Hnub Nco - Koj Nplua Nuj"
+    notificationBody: "Txhua Hnub Nco - Koj Nplua Nuj Hnub No"
   },
   iw: { 
-    message: "אתה עשיר היום",
+    message: "אתה משגשג היום",
     dayStreak: "רצף ימים",
     wealthLevel: "רמת עושר",
     becauseYouDeserve: "כי אתה ראוי לתזכורת",
     notificationTitle: "Aura",
-    notificationBody: "תזכורת יומית - אתה עשיר"
+    notificationBody: "תזכורת יומית - אתה משגשג היום"
   },
   kri: { 
     message: "Yu Rich Tide",
@@ -830,7 +830,7 @@ export const translations = {
     wealthLevel: "RICH LEVEL",
     becauseYouDeserve: "Bikɔs yu dizayv di rimemba",
     notificationTitle: "Aura",
-    notificationBody: "Evride Rimemba - Yu Rich"
+    notificationBody: "Evride Rimemba - Yu Rich Tide"
   },
   ckb: { 
     message: "ئەمڕۆ دەوڵەمەندیت",
@@ -838,7 +838,7 @@ export const translations = {
     wealthLevel: "ئاستی دەوڵەمەندی",
     becauseYouDeserve: "چونکە شایانی بیرخستنەوەیت",
     notificationTitle: "Aura",
-    notificationBody: "بیرخستنەوەی ڕۆژانە - دەوڵەمەندیت"
+    notificationBody: "بیرخستنەوەی ڕۆژانە - ئەمڕۆ دەوڵەمەندیت"
   },
   tk: { 
     message: "Şu Gün Baýsyň",
@@ -846,7 +846,7 @@ export const translations = {
     wealthLevel: "BAÝLYK DEREJESI",
     becauseYouDeserve: "Sebäbi ýatlatmaga mynasypsyň",
     notificationTitle: "Aura",
-    notificationBody: "Gündelik Ýatlatma - Baýsyň"
+    notificationBody: "Gündelik Ýatlatma - Şu Gün Baýsyň"
   },
   tt: { 
     message: "Син Бүген Бай",
@@ -854,7 +854,7 @@ export const translations = {
     wealthLevel: "БАЙЛЫК ДӘРӘҖӘСЕ",
     becauseYouDeserve: "Чөнки син искә төшерүгә лаек",
     notificationTitle: "Aura",
-    notificationBody: "Көндәлек Искә Төшерү - Син Бай"
+    notificationBody: "Көндәлек Искә Төшерү - Син Бүген Бай"
   },
   ug: { 
     message: "سىز بۈگۈن بايسىز",
@@ -862,7 +862,7 @@ export const translations = {
     wealthLevel: "بايلىق دەرىجىسى",
     becauseYouDeserve: "چۈنكى سىز ئەسكەرتىشكە لايىق",
     notificationTitle: "Aura",
-    notificationBody: "كۈندىلىك ئەسكەرتىش - سىز بايسىز"
+    notificationBody: "كۈندىلىك ئەسكەرتىش - سىز بۈگۈن بايسىز"
   },
 };
 
