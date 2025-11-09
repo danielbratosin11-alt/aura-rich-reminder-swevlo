@@ -1,19 +1,28 @@
 
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Platform, Animated, Image } from "react-native";
+import { StyleSheet, View, Text, Platform, Animated, Image, TouchableOpacity } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts, PlayfairDisplay_400Regular, PlayfairDisplay_700Bold } from "@expo-google-fonts/playfair-display";
 import { CormorantGaramond_300Light, CormorantGaramond_400Regular } from "@expo-google-fonts/cormorant-garamond";
 import { LinearGradient } from "expo-linear-gradient";
+import { IconSymbol } from "@/components/IconSymbol";
+import LanguageSelector from "@/components/LanguageSelector";
+import NotificationSettings from "@/components/NotificationSettings";
+import { translations } from "@/utils/translations";
+import { registerForPushNotificationsAsync, scheduleDailyNotification } from "@/utils/notificationManager";
 
 const LAST_OPENED_KEY = "@aura_last_opened";
 const STREAK_KEY = "@aura_streak";
+const LANGUAGE_KEY = "@aura_language";
 
 export default function HomeScreen() {
   const theme = useTheme();
   const [currentDate, setCurrentDate] = useState("");
   const [dayStreak, setDayStreak] = useState(0);
+  const [languageCode, setLanguageCode] = useState("en");
+  const [showLanguageSelector, setShowLanguageSelector] = useState(false);
+  const [showNotificationSettings, setShowNotificationSettings] = useState(false);
   const fadeAnim = useState(new Animated.Value(0))[0];
   const scaleAnim = useState(new Animated.Value(0.9))[0];
 
@@ -27,6 +36,9 @@ export default function HomeScreen() {
   useEffect(() => {
     console.log('HomeScreen mounted');
     
+    // Load language
+    loadLanguage();
+    
     // Format current date
     const today = new Date();
     const options: Intl.DateTimeFormatOptions = { 
@@ -39,6 +51,9 @@ export default function HomeScreen() {
 
     // Check and update streak
     checkAndUpdateStreak();
+
+    // Initialize notifications
+    initializeNotifications();
 
     // Animate entrance
     Animated.parallel([
@@ -55,6 +70,28 @@ export default function HomeScreen() {
       }),
     ]).start();
   }, []);
+
+  const loadLanguage = async () => {
+    try {
+      const saved = await AsyncStorage.getItem(LANGUAGE_KEY);
+      if (saved) {
+        setLanguageCode(saved);
+      }
+    } catch (error) {
+      console.error('Error loading language:', error);
+    }
+  };
+
+  const initializeNotifications = async () => {
+    try {
+      await registerForPushNotificationsAsync();
+      const saved = await AsyncStorage.getItem(LANGUAGE_KEY);
+      const lang = saved || 'en';
+      await scheduleDailyNotification(lang);
+    } catch (error) {
+      console.error('Error initializing notifications:', error);
+    }
+  };
 
   const checkAndUpdateStreak = async () => {
     try {
@@ -102,6 +139,10 @@ export default function HomeScreen() {
     }
   };
 
+  const handleLanguageChange = (newLanguageCode: string) => {
+    setLanguageCode(newLanguageCode);
+  };
+
   if (!fontsLoaded) {
     console.log('Fonts not loaded yet');
     return (
@@ -111,6 +152,8 @@ export default function HomeScreen() {
     );
   }
 
+  const message = translations[languageCode as keyof typeof translations]?.message || translations.en.message;
+
   console.log('Rendering HomeScreen with streak:', dayStreak);
 
   return (
@@ -119,6 +162,22 @@ export default function HomeScreen() {
         colors={['#000000', '#0A0A0A', '#000000']}
         style={styles.gradient}
       >
+        {/* Top Action Buttons */}
+        <View style={styles.topButtons}>
+          <TouchableOpacity
+            style={styles.actionButton}
+            onPress={() => setShowLanguageSelector(true)}
+          >
+            <IconSymbol name="globe" size={24} color="#D4AF37" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.actionButton}
+            onPress={() => setShowNotificationSettings(true)}
+          >
+            <IconSymbol name="bell.fill" size={24} color="#D4AF37" />
+          </TouchableOpacity>
+        </View>
+
         <Animated.View 
           style={[
             styles.content,
@@ -139,8 +198,7 @@ export default function HomeScreen() {
 
           {/* Main Message */}
           <View style={styles.mainMessageContainer}>
-            <Text style={styles.mainMessage}>You Are Rich</Text>
-            <Text style={styles.mainMessage}>Today</Text>
+            <Text style={styles.mainMessage}>{message}</Text>
           </View>
 
           {/* Date */}
@@ -171,6 +229,17 @@ export default function HomeScreen() {
           </View>
         </Animated.View>
       </LinearGradient>
+
+      {/* Modals */}
+      <LanguageSelector
+        visible={showLanguageSelector}
+        onClose={() => setShowLanguageSelector(false)}
+        onLanguageChange={handleLanguageChange}
+      />
+      <NotificationSettings
+        visible={showNotificationSettings}
+        onClose={() => setShowNotificationSettings(false)}
+      />
     </View>
   );
 }
@@ -184,6 +253,35 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
+  },
+  topButtons: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? 60 : 40,
+    right: 20,
+    flexDirection: 'row',
+    gap: 15,
+    zIndex: 10,
+  },
+  actionButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    borderWidth: 1,
+    borderColor: '#D4AF37',
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#D4AF37',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
   },
   content: {
     flex: 1,
@@ -208,13 +306,14 @@ const styles = StyleSheet.create({
   },
   mainMessage: {
     fontFamily: 'PlayfairDisplay_700Bold',
-    fontSize: 48,
+    fontSize: 42,
     color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 2,
     textShadowColor: 'rgba(212, 175, 55, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 10,
+    lineHeight: 52,
   },
   dateContainer: {
     alignItems: 'center',

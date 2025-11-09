@@ -19,7 +19,7 @@
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
-        "UIBackgroundModes": [],
+        "UIBackgroundModes": ["remote-notification"],
         "NSUserTrackingUsageDescription": "This app does not track you."
       },
       "config": {
@@ -34,7 +34,11 @@
       "edgeToEdgeEnabled": true,
       "package": "com.yourcompany.aura",
       "versionCode": 1,
-      "permissions": []
+      "permissions": [
+        "RECEIVE_BOOT_COMPLETED",
+        "SCHEDULE_EXACT_ALARM",
+        "POST_NOTIFICATIONS"
+      ]
     },
     "web": {
       "favicon": "./assets/images/final_quest_240x240.png",
@@ -43,7 +47,18 @@
     "plugins": [
       "expo-font",
       "expo-router",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg",
+          "color": "#D4AF37",
+          "defaultChannel": "aura-daily",
+          "sounds": [],
+          "enableBackgroundRemoteNotifications": false
+        }
+      ],
+      "expo-localization"
     ],
     "scheme": "aura",
     "experiments": {
