@@ -8,6 +8,7 @@
     "icon": "./assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "description": "Aura - Your daily luxury reminder that you are rich. A minimalistic, elegant app designed to remind you of your wealth every single day.",
     "splash": {
       "image": "./assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg",
       "resizeMode": "contain",
@@ -15,16 +16,18 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.aura",
+      "bundleIdentifier": "com.auraapp.luxury",
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "UIBackgroundModes": ["remote-notification"],
-        "NSUserTrackingUsageDescription": "This app does not track you."
+        "NSUserTrackingUsageDescription": "This app does not track you.",
+        "NSUserNotificationsUsageDescription": "Aura sends you daily reminders that you are rich."
       },
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "appStoreUrl": "https://apps.apple.com/app/aura-luxury-reminder/id123456789"
     },
     "android": {
       "adaptiveIcon": {
@@ -32,14 +35,15 @@
         "backgroundColor": "#000000"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.yourcompany.aura",
+      "package": "com.auraapp.luxury",
       "versionCode": 1,
       "permissions": [
         "RECEIVE_BOOT_COMPLETED",
         "SCHEDULE_EXACT_ALARM",
         "POST_NOTIFICATIONS",
         "VIBRATE"
-      ]
+      ],
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.auraapp.luxury"
     },
     "web": {
       "favicon": "./assets/images/final_quest_240x240.png",
@@ -77,6 +81,7 @@
       "eas": {
         "projectId": "your-project-id-here"
       }
-    }
+    },
+    "privacy": "public"
   }
 }
