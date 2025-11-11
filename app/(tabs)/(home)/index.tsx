@@ -161,7 +161,7 @@ export default function HomeScreen() {
 
         <View style={styles.logoContainer}>
           <Image 
-            source={require('@/assets/images/bee3fec5-8253-495c-b47b-4a28ccd9ff32.jpeg')}
+            source={require('@/assets/images/d523516b-8bc5-4ca1-ac36-62fd57179c70.jpeg')}
             style={styles.logo}
           />
         </View>
@@ -249,8 +249,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 120,
+    height: 120,
     resizeMode: 'contain',
   },
   mainMessage: {
@@ -260,13 +260,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 16,
     letterSpacing: 1,
+    textShadowColor: 'rgba(212, 175, 55, 0.8)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
   },
   dateText: {
     fontSize: 16,
     color: '#D4AF37',
     textAlign: 'center',
     marginBottom: 40,
-    opacity: 0.8,
+    opacity: 0.9,
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -283,13 +289,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#D4AF37',
     marginBottom: 8,
+    textShadowColor: 'rgba(212, 175, 55, 0.8)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 12,
   },
   statLabel: {
     fontSize: 12,
     color: '#D4AF37',
     letterSpacing: 1,
     textTransform: 'uppercase',
-    opacity: 0.8,
+    opacity: 0.9,
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
   memberIdContainer: {
     alignItems: 'center',
@@ -301,19 +313,28 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     textTransform: 'uppercase',
     marginBottom: 4,
-    opacity: 0.7,
+    opacity: 0.8,
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
   memberIdValue: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#D4AF37',
     letterSpacing: 2,
+    textShadowColor: 'rgba(212, 175, 55, 0.7)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
   },
   bottomMessage: {
     fontSize: 14,
     color: '#D4AF37',
     textAlign: 'center',
     fontStyle: 'italic',
-    opacity: 0.8,
+    opacity: 0.9,
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
   },
 });

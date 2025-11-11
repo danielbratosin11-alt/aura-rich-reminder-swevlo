@@ -144,6 +144,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     letterSpacing: 0.5,
+    textShadowColor: 'rgba(212, 175, 55, 0.6)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
   },
   languageItem: {
     flexDirection: 'row',
@@ -163,9 +166,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#D4AF37',
     letterSpacing: 0.3,
+    textShadowColor: 'rgba(212, 175, 55, 0.4)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
   languageNameSelected: {
     fontWeight: 'bold',
+    textShadowColor: 'rgba(212, 175, 55, 0.6)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
   },
   selectedBadge: {
     width: 24,
@@ -194,5 +203,8 @@ const styles = StyleSheet.create({
     color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 0.5,
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
 });

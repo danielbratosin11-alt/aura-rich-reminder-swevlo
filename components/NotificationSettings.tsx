@@ -180,6 +180,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 24,
     letterSpacing: 0.5,
+    textShadowColor: 'rgba(212, 175, 55, 0.6)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
   },
   settingRow: {
     flexDirection: 'row',
@@ -193,6 +196,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#D4AF37',
     letterSpacing: 0.3,
+    textShadowColor: 'rgba(212, 175, 55, 0.4)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
   timeSection: {
     marginTop: 20,
@@ -205,7 +211,10 @@ const styles = StyleSheet.create({
     color: '#D4AF37',
     marginBottom: 12,
     letterSpacing: 0.3,
-    opacity: 0.8,
+    opacity: 0.9,
+    textShadowColor: 'rgba(212, 175, 55, 0.4)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
   timeButton: {
     backgroundColor: 'rgba(212, 175, 55, 0.1)',
@@ -221,6 +230,9 @@ const styles = StyleSheet.create({
     color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 1,
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
   closeButton: {
     marginTop: 24,
@@ -236,5 +248,8 @@ const styles = StyleSheet.create({
     color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 0.5,
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 6,
   },
 });
