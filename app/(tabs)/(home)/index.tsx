@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { StyleSheet, View, Text, Platform, Animated, Image, TouchableOpacity, Dimensions } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -34,6 +34,10 @@ export default function HomeScreen() {
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
   const fadeAnim = useState(new Animated.Value(0))[0];
   const scaleAnim = useState(new Animated.Value(0.9))[0];
+  
+  // Shimmer animation values
+  const shimmerAnim = useRef(new Animated.Value(0)).current;
+  const logoShimmerAnim = useRef(new Animated.Value(0)).current;
 
   const [fontsLoaded] = useFonts({
     PlayfairDisplay_400Regular,
@@ -70,7 +74,44 @@ export default function HomeScreen() {
         useNativeDriver: true,
       }),
     ]).start();
+
+    // Start shimmer animations
+    startShimmerAnimation();
   }, []);
+
+  const startShimmerAnimation = () => {
+    // Background shimmer - slower, more subtle
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(shimmerAnim, {
+          toValue: 1,
+          duration: 3000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(shimmerAnim, {
+          toValue: 0,
+          duration: 3000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+
+    // Logo shimmer - faster, more noticeable
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(logoShimmerAnim, {
+          toValue: 1,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(logoShimmerAnim, {
+          toValue: 0,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  };
 
   const loadLanguageAndUpdateDate = async () => {
     try {
@@ -220,12 +261,39 @@ export default function HomeScreen() {
 
   console.log('Rendering HomeScreen with streak:', dayStreak);
 
+  // Interpolate shimmer opacity for background
+  const shimmerOpacity = shimmerAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0.3, 0.6, 0.3],
+  });
+
+  // Interpolate shimmer for logo
+  const logoShimmerOpacity = logoShimmerAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0.7, 1, 0.7],
+  });
+
   return (
     <View style={styles.container}>
       <LinearGradient
         colors={['#000000', '#0A0A0A', '#000000']}
         style={styles.gradient}
       >
+        {/* Shimmer overlay for background */}
+        <Animated.View 
+          style={[
+            styles.shimmerOverlay,
+            { opacity: shimmerOpacity }
+          ]}
+        >
+          <LinearGradient
+            colors={['transparent', 'rgba(212, 175, 55, 0.05)', 'transparent']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={StyleSheet.absoluteFill}
+          />
+        </Animated.View>
+
         {/* Top Action Buttons */}
         <View style={styles.topButtons}>
           <TouchableOpacity
@@ -251,12 +319,25 @@ export default function HomeScreen() {
             },
           ]}
         >
-          {/* Logo - Responsive sizing */}
+          {/* Logo with shimmer effect */}
           <View style={styles.logoContainer}>
-            <Image 
-              source={require('../../../assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg')}
-              style={[styles.logo, { width: LOGO_SIZE, height: LOGO_SIZE }]}
-              resizeMode="contain"
+            <Animated.View style={{ opacity: logoShimmerOpacity }}>
+              <Image 
+                source={require('../../../assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg')}
+                style={[styles.logo, { width: LOGO_SIZE, height: LOGO_SIZE }]}
+                resizeMode="contain"
+              />
+            </Animated.View>
+            {/* Shimmer glow effect around logo */}
+            <Animated.View 
+              style={[
+                styles.logoGlow,
+                { 
+                  width: LOGO_SIZE + 20, 
+                  height: LOGO_SIZE + 20,
+                  opacity: logoShimmerOpacity 
+                }
+              ]}
             />
           </View>
 
@@ -318,6 +399,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  shimmerOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
+  },
   topButtons: {
     position: 'absolute',
     top: 40,
@@ -344,13 +433,28 @@ const styles = StyleSheet.create({
     paddingVertical: 60,
     paddingHorizontal: 30,
     paddingBottom: 40,
+    zIndex: 2,
   },
   logoContainer: {
     marginTop: 20,
     alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
   },
   logo: {
     opacity: 0.9,
+  },
+  logoGlow: {
+    position: 'absolute',
+    borderRadius: 1000,
+    backgroundColor: 'transparent',
+    borderWidth: 2,
+    borderColor: 'rgba(212, 175, 55, 0.3)',
+    shadowColor: '#D4AF37',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 20,
+    elevation: 10,
   },
   mainMessageContainer: {
     alignItems: 'center',
@@ -362,9 +466,9 @@ const styles = StyleSheet.create({
     color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 2,
-    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
     textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 10,
+    textShadowRadius: 15,
     lineHeight: MAIN_MESSAGE_SIZE * 1.3,
   },
   dateContainer: {
@@ -404,6 +508,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: 'rgba(212, 175, 55, 0.05)',
     elevation: 8,
+    shadowColor: '#D4AF37',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
   statLabel: {
     fontFamily: 'CormorantGaramond_400Regular',
@@ -417,17 +525,17 @@ const styles = StyleSheet.create({
   statValue: {
     fontFamily: 'PlayfairDisplay_700Bold',
     color: '#D4AF37',
-    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
     textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 8,
+    textShadowRadius: 10,
     textAlign: 'center',
   },
   infinitySymbol: {
     fontFamily: 'PlayfairDisplay_700Bold',
     color: '#D4AF37',
-    textShadowColor: 'rgba(212, 175, 55, 0.3)',
+    textShadowColor: 'rgba(212, 175, 55, 0.5)',
     textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 8,
+    textShadowRadius: 10,
     textAlign: 'center',
   },
   bottomMessageContainer: {
