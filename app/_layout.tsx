@@ -187,7 +187,7 @@ export default function RootLayout() {
             >
               <Animated.View style={{ opacity: shimmerOpacity }}>
                 <Image
-                  source={require('../assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg')}
+                  source={require('../assets/images/a7f3f6ff-d553-4a60-99dc-2d581ece63d6.jpeg')}
                   style={styles.splashLogo}
                   resizeMode="contain"
                 />

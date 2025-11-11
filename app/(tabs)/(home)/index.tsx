@@ -233,6 +233,7 @@ export default function HomeScreen() {
   };
 
   const handleLanguageChange = async (newLanguageCode: string) => {
+    console.log('Language changed to:', newLanguageCode);
     setLanguageCode(newLanguageCode);
     updateDate(newLanguageCode);
     
@@ -309,13 +310,21 @@ export default function HomeScreen() {
         <View style={styles.topButtons}>
           <TouchableOpacity
             style={styles.actionButton}
-            onPress={() => setShowLanguageSelector(true)}
+            onPress={() => {
+              console.log('Language button pressed');
+              setShowLanguageSelector(true);
+            }}
           >
-            <Text style={styles.flagButton}>{flag}</Text>
+            <View style={styles.flagContainer}>
+              <Text style={styles.flagButton}>{flag}</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.actionButton}
-            onPress={() => setShowNotificationSettings(true)}
+            onPress={() => {
+              console.log('Notification button pressed');
+              setShowNotificationSettings(true);
+            }}
           >
             <IconSymbol name="bell.fill" size={24} color="#D4AF37" />
           </TouchableOpacity>
@@ -334,7 +343,7 @@ export default function HomeScreen() {
           <View style={styles.logoContainer}>
             <Animated.View style={{ opacity: logoShimmerOpacity }}>
               <Image 
-                source={require('../../../assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg')}
+                source={require('../../../assets/images/a7f3f6ff-d553-4a60-99dc-2d581ece63d6.jpeg')}
                 style={[styles.logo, { width: LOGO_SIZE, height: LOGO_SIZE }]}
                 resizeMode="contain"
               />
@@ -411,12 +420,18 @@ export default function HomeScreen() {
       {/* Modals */}
       <LanguageSelector
         visible={showLanguageSelector}
-        onClose={() => setShowLanguageSelector(false)}
+        onClose={() => {
+          console.log('Language selector closed');
+          setShowLanguageSelector(false);
+        }}
         onLanguageChange={handleLanguageChange}
       />
       <NotificationSettings
         visible={showNotificationSettings}
-        onClose={() => setShowNotificationSettings(false)}
+        onClose={() => {
+          console.log('Notification settings closed');
+          setShowNotificationSettings(false);
+        }}
       />
     </View>
   );
@@ -449,9 +464,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   actionButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     backgroundColor: 'rgba(212, 175, 55, 0.15)',
     borderWidth: 1.5,
     borderColor: '#D4AF37',
@@ -463,8 +478,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
   },
+  flagContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+  },
   flagButton: {
-    fontSize: 24,
+    fontSize: 28,
+    lineHeight: 32,
   },
   content: {
     flex: 1,
