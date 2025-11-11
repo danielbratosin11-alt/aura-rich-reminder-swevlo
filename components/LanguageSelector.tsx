@@ -31,13 +31,17 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
   const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   useEffect(() => {
-    loadLanguage();
-  }, []);
+    console.log('LanguageSelector visible:', visible);
+    if (visible) {
+      loadLanguage();
+    }
+  }, [visible]);
 
   const loadLanguage = async () => {
     try {
       const saved = await AsyncStorage.getItem(LANGUAGE_KEY);
       if (saved) {
+        console.log('Loaded language:', saved);
         setSelectedLanguage(saved);
       }
     } catch (error) {
@@ -47,6 +51,7 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
 
   const saveLanguage = async (languageCode: string) => {
     try {
+      console.log('Saving language:', languageCode);
       await AsyncStorage.setItem(LANGUAGE_KEY, languageCode);
       setSelectedLanguage(languageCode);
       
@@ -104,6 +109,10 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
     </TouchableOpacity>
   );
 
+  if (!visible) {
+    return null;
+  }
+
   return (
     <Modal
       visible={visible}
@@ -111,8 +120,13 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
       animationType="fade"
       onRequestClose={onClose}
     >
-      <Pressable style={styles.overlay} onPress={onClose}>
-        <Pressable style={styles.modalContainer} onPress={(e) => e.stopPropagation()}>
+      <View style={styles.overlay}>
+        <TouchableOpacity 
+          style={StyleSheet.absoluteFill} 
+          activeOpacity={1} 
+          onPress={onClose}
+        />
+        <View style={styles.modalContainer}>
           <BlurView intensity={Platform.OS === 'ios' ? 80 : 100} style={styles.blurContainer}>
             <View style={styles.content}>
               {/* Header */}
@@ -145,8 +159,8 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
               />
             </View>
           </BlurView>
-        </Pressable>
-      </Pressable>
+        </View>
+      </View>
     </Modal>
   );
 }
@@ -154,7 +168,7 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -168,13 +182,13 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
     shadowColor: colors.primary,
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 20,
-    elevation: 10,
+    shadowOpacity: 0.8,
+    shadowRadius: 25,
+    elevation: 15,
   },
   blurContainer: {
     flex: 1,
-    backgroundColor: Platform.OS === 'ios' ? 'rgba(10, 10, 10, 0.85)' : colors.backgroundAlt,
+    backgroundColor: Platform.OS === 'ios' ? 'rgba(10, 10, 10, 0.9)' : '#0A0A0A',
   },
   content: {
     flex: 1,
@@ -197,7 +211,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    backgroundColor: 'rgba(212, 175, 55, 0.2)',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
@@ -242,10 +256,10 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   selectedLanguageItem: {
-    backgroundColor: 'rgba(212, 175, 55, 0.2)',
+    backgroundColor: 'rgba(212, 175, 55, 0.25)',
     borderRadius: 10,
     borderBottomWidth: 0,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: colors.primary,
   },
   languageItemContent: {

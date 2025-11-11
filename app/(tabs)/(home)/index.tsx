@@ -263,6 +263,7 @@ export default function HomeScreen() {
   const flag = countryFlags[languageCode] || '🌐';
 
   console.log('Rendering HomeScreen with streak:', dayStreak);
+  console.log('Current language:', languageCode, 'Flag:', flag);
 
   // Interpolate shimmer opacity for background
   const shimmerOpacity = shimmerAnim.interpolate({
@@ -311,9 +312,11 @@ export default function HomeScreen() {
           <TouchableOpacity
             style={styles.actionButton}
             onPress={() => {
-              console.log('Language button pressed');
+              console.log('Language button pressed, current state:', showLanguageSelector);
               setShowLanguageSelector(true);
+              console.log('Language selector should now be visible');
             }}
+            activeOpacity={0.7}
           >
             <View style={styles.flagContainer}>
               <Text style={styles.flagButton}>{flag}</Text>
@@ -325,6 +328,7 @@ export default function HomeScreen() {
               console.log('Notification button pressed');
               setShowNotificationSettings(true);
             }}
+            activeOpacity={0.7}
           >
             <IconSymbol name="bell.fill" size={24} color="#D4AF37" />
           </TouchableOpacity>
@@ -418,10 +422,11 @@ export default function HomeScreen() {
       </LinearGradient>
 
       {/* Modals */}
+      {console.log('Rendering LanguageSelector with visible:', showLanguageSelector)}
       <LanguageSelector
         visible={showLanguageSelector}
         onClose={() => {
-          console.log('Language selector closed');
+          console.log('Language selector onClose called');
           setShowLanguageSelector(false);
         }}
         onLanguageChange={handleLanguageChange}
@@ -457,7 +462,7 @@ const styles = StyleSheet.create({
   },
   topButtons: {
     position: 'absolute',
-    top: 40,
+    top: 50,
     right: 20,
     flexDirection: 'row',
     gap: 15,
@@ -467,29 +472,32 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
-    borderWidth: 1.5,
+    backgroundColor: 'rgba(212, 175, 55, 0.2)',
+    borderWidth: 2,
     borderColor: '#D4AF37',
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 4,
+    elevation: 5,
     shadowColor: '#D4AF37',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
+    shadowOpacity: 0.5,
+    shadowRadius: 6,
   },
   flagContainer: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.3)',
   },
   flagButton: {
-    fontSize: 28,
-    lineHeight: 32,
+    fontSize: 26,
+    lineHeight: 30,
+    textAlign: 'center',
   },
   content: {
     flex: 1,
