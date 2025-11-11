@@ -8,8 +8,8 @@ import { translations, countryFlags } from "@/utils/translations";
 import { useFonts, PlayfairDisplay_400Regular, PlayfairDisplay_700Bold } from "@expo-google-fonts/playfair-display";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { registerForPushNotificationsAsync, scheduleDailyNotification } from "@/utils/notificationManager";
-import { StyleSheet, View, Text, Platform, Animated, Image, TouchableOpacity, Dimensions } from "react-native";
-import React, { useEffect, useState, useRef } from "react";
+import { StyleSheet, View, Text, Platform, Image, TouchableOpacity, Dimensions } from "react-native";
+import React, { useEffect, useState } from "react";
 import { CormorantGaramond_300Light, CormorantGaramond_400Regular } from "@expo-google-fonts/cormorant-garamond";
 import LanguageSelector from "@/components/LanguageSelector";
 
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   mainMessage: {
+    fontSize: 42,
     fontFamily: 'PlayfairDisplay_700Bold',
     color: '#D4AF37',
     textAlign: 'center',
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   dateText: {
+    fontSize: 18,
     fontFamily: 'CormorantGaramond_300Light',
     color: '#D4AF37',
     textAlign: 'center',
@@ -71,6 +73,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   statLabel: {
+    fontSize: 14,
     fontFamily: 'CormorantGaramond_400Regular',
     color: '#D4AF37',
     letterSpacing: 2,
@@ -95,6 +98,7 @@ const styles = StyleSheet.create({
     letterSpacing: 3,
   },
   bottomMessage: {
+    fontSize: 16,
     fontFamily: 'CormorantGaramond_300Light',
     color: '#D4AF37',
     textAlign: 'center',
@@ -143,8 +147,6 @@ export default function HomeScreen() {
   const [languageCode, setLanguageCode] = useState('en');
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
-  
-  const shimmerAnim = useRef(new Animated.Value(0)).current;
 
   const [fontsLoaded] = useFonts({
     PlayfairDisplay_400Regular,
@@ -158,25 +160,7 @@ export default function HomeScreen() {
     loadLanguageAndUpdateDate();
     checkAndUpdateStreak();
     initializeNotifications();
-    startShimmerAnimation();
   }, []);
-
-  const startShimmerAnimation = () => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(shimmerAnim, {
-          toValue: 1,
-          duration: 2000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(shimmerAnim, {
-          toValue: 0,
-          duration: 2000,
-          useNativeDriver: true,
-        }),
-      ])
-    ).start();
-  };
 
   const initializeMembershipId = async () => {
     try {
@@ -286,7 +270,6 @@ export default function HomeScreen() {
   }
 
   const t = translations[languageCode] || translations.en;
-  const typography = t.typography;
 
   return (
     <View style={styles.container}>
@@ -319,28 +302,25 @@ export default function HomeScreen() {
           />
         </View>
 
-        <Text style={[styles.mainMessage, { 
-          fontSize: typography.mainMessageSize,
-          lineHeight: typography.mainMessageLineHeight 
-        }]}>
+        <Text style={styles.mainMessage}>
           {t.message}
         </Text>
 
-        <Text style={[styles.dateText, { fontSize: typography.dateSize }]}>
+        <Text style={styles.dateText}>
           {currentDate}
         </Text>
 
         <View style={styles.statsContainer}>
           <View style={styles.statBox}>
             <Text style={styles.statValue}>{streak}</Text>
-            <Text style={[styles.statLabel, { fontSize: typography.statLabelSize }]}>
+            <Text style={styles.statLabel}>
               {t.dayStreak}
             </Text>
           </View>
 
           <View style={styles.statBox}>
             <Text style={styles.statValue}>∞</Text>
-            <Text style={[styles.statLabel, { fontSize: typography.statLabelSize }]}>
+            <Text style={styles.statLabel}>
               {t.wealthLevel}
             </Text>
           </View>
@@ -351,7 +331,7 @@ export default function HomeScreen() {
           <Text style={styles.memberIdValue}>{memberId}</Text>
         </View>
 
-        <Text style={[styles.bottomMessage, { fontSize: typography.bottomMessageSize }]}>
+        <Text style={styles.bottomMessage}>
           {t.becauseYouDeserve}
         </Text>
       </LinearGradient>

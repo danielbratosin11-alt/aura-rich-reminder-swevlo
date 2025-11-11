@@ -7,14 +7,6 @@ export interface LanguageTranslation {
   notificationTitle: string;
   notificationBody: string;
   memberId: string;
-  // Typography settings for each language
-  typography: {
-    mainMessageSize: number;
-    mainMessageLineHeight: number;
-    statLabelSize: number;
-    dateSize: number;
-    bottomMessageSize: number;
-  };
 }
 
 export const translations: { [key: string]: LanguageTranslation } = {
@@ -26,13 +18,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "Daily Reminder - You Are Wealthy Today",
     memberId: "Member ID",
-    typography: {
-      mainMessageSize: 42,
-      mainMessageLineHeight: 54,
-      statLabelSize: 14,
-      dateSize: 18,
-      bottomMessageSize: 16,
-    }
   },
   es: { 
     message: "Eres Próspero Hoy",
@@ -42,13 +27,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "Recordatorio Diario - Eres Próspero Hoy",
     memberId: "ID de Miembro",
-    typography: {
-      mainMessageSize: 38,
-      mainMessageLineHeight: 50,
-      statLabelSize: 13,
-      dateSize: 17,
-      bottomMessageSize: 15,
-    }
   },
   fr: { 
     message: "Tu Es Prospère Aujourd'hui",
@@ -58,13 +36,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "Rappel Quotidien - Tu Es Prospère Aujourd'hui",
     memberId: "ID Membre",
-    typography: {
-      mainMessageSize: 36,
-      mainMessageLineHeight: 48,
-      statLabelSize: 13,
-      dateSize: 17,
-      bottomMessageSize: 15,
-    }
   },
   de: { 
     message: "Du Bist Heute Wohlhabend",
@@ -74,13 +45,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "Tägliche Erinnerung - Du Bist Heute Wohlhabend",
     memberId: "Mitglieds-ID",
-    typography: {
-      mainMessageSize: 36,
-      mainMessageLineHeight: 48,
-      statLabelSize: 12,
-      dateSize: 16,
-      bottomMessageSize: 14,
-    }
   },
   it: { 
     message: "Sei Prospero Oggi",
@@ -90,13 +54,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "Promemoria Giornaliero - Sei Prospero Oggi",
     memberId: "ID Membro",
-    typography: {
-      mainMessageSize: 40,
-      mainMessageLineHeight: 52,
-      statLabelSize: 13,
-      dateSize: 17,
-      bottomMessageSize: 15,
-    }
   },
   pt: { 
     message: "Você É Próspero Hoje",
@@ -106,13 +63,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "Lembrete Diário - Você É Próspero Hoje",
     memberId: "ID de Membro",
-    typography: {
-      mainMessageSize: 38,
-      mainMessageLineHeight: 50,
-      statLabelSize: 13,
-      dateSize: 17,
-      bottomMessageSize: 15,
-    }
   },
   ru: { 
     message: "Ты Процветаешь Сегодня",
@@ -122,13 +72,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "Ежедневное Напоминание - Ты Процветаешь Сегодня",
     memberId: "ID Участника",
-    typography: {
-      mainMessageSize: 34,
-      mainMessageLineHeight: 46,
-      statLabelSize: 12,
-      dateSize: 16,
-      bottomMessageSize: 14,
-    }
   },
   zh: { 
     message: "你今天很富裕",
@@ -138,13 +81,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "每日提醒 - 你今天很富裕",
     memberId: "会员编号",
-    typography: {
-      mainMessageSize: 44,
-      mainMessageLineHeight: 56,
-      statLabelSize: 15,
-      dateSize: 19,
-      bottomMessageSize: 17,
-    }
   },
   ja: { 
     message: "あなたは今日裕福です",
@@ -154,13 +90,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "毎日のリマインダー - あなたは今日裕福です",
     memberId: "会員ID",
-    typography: {
-      mainMessageSize: 38,
-      mainMessageLineHeight: 50,
-      statLabelSize: 14,
-      dateSize: 18,
-      bottomMessageSize: 16,
-    }
   },
   ko: { 
     message: "당신은 오늘 부유합니다",
@@ -170,13 +99,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "일일 알림 - 당신은 오늘 부유합니다",
     memberId: "회원 ID",
-    typography: {
-      mainMessageSize: 36,
-      mainMessageLineHeight: 48,
-      statLabelSize: 14,
-      dateSize: 18,
-      bottomMessageSize: 16,
-    }
   },
   ar: { 
     message: "أنت مزدهر اليوم",
@@ -186,13 +108,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "تذكير يومي - أنت مزدهر اليوم",
     memberId: "معرف العضو",
-    typography: {
-      mainMessageSize: 40,
-      mainMessageLineHeight: 52,
-      statLabelSize: 15,
-      dateSize: 19,
-      bottomMessageSize: 17,
-    }
   },
   hi: { 
     message: "आप आज समृद्ध हैं",
@@ -202,13 +117,6 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "दैनिक अनुस्मारक - आप आज समृद्ध हैं",
     memberId: "सदस्य आईडी",
-    typography: {
-      mainMessageSize: 36,
-      mainMessageLineHeight: 48,
-      statLabelSize: 13,
-      dateSize: 17,
-      bottomMessageSize: 15,
-    }
   },
   pl: { 
     message: "Jesteś Zamożny Dzisiaj",
@@ -218,15 +126,7 @@ export const translations: { [key: string]: LanguageTranslation } = {
     notificationTitle: "Aura",
     notificationBody: "Codzienne Przypomnienie - Jesteś Zamożny Dzisiaj",
     memberId: "ID Członka",
-    typography: {
-      mainMessageSize: 36,
-      mainMessageLineHeight: 48,
-      statLabelSize: 13,
-      dateSize: 17,
-      bottomMessageSize: 15,
-    }
   },
-  // Add more languages with similar structure...
 };
 
 export const languageNames: { [key: string]: string } = {
