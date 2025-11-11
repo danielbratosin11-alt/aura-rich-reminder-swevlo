@@ -1,159 +1,26 @@
 
-import { LinearGradient } from "expo-linear-gradient";
-import { generateMembershipId, getMembershipId } from "@/utils/membershipIdGenerator";
-import { IconSymbol } from "@/components/IconSymbol";
-import { useTheme } from "@react-navigation/native";
-import NotificationSettings from "@/components/NotificationSettings";
-import { translations, countryFlags } from "@/utils/translations";
-import { useFonts, PlayfairDisplay_400Regular, PlayfairDisplay_700Bold } from "@expo-google-fonts/playfair-display";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { registerForPushNotificationsAsync, scheduleDailyNotification } from "@/utils/notificationManager";
-import { StyleSheet, View, Text, Platform, Image, TouchableOpacity, Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
-import { CormorantGaramond_300Light, CormorantGaramond_400Regular } from "@expo-google-fonts/cormorant-garamond";
+import { StyleSheet, View, Text, Platform, Image, TouchableOpacity } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { IconSymbol } from "@/components/IconSymbol";
+import NotificationSettings from "@/components/NotificationSettings";
 import LanguageSelector from "@/components/LanguageSelector";
+import { translations } from "@/utils/translations";
+import { generateMembershipId, getMembershipId } from "@/utils/membershipIdGenerator";
+import { registerForPushNotificationsAsync, scheduleDailyNotification } from "@/utils/notificationManager";
 
 const LAST_OPENED_KEY = '@aura_last_opened';
 const STREAK_KEY = '@aura_streak';
 const LANGUAGE_KEY = '@aura_language';
 
-const { width } = Dimensions.get('window');
-const LOGO_SIZE = width * 0.25;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gradient: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 24,
-  },
-  logoContainer: {
-    marginBottom: 40,
-    alignItems: 'center',
-  },
-  logo: {
-    width: LOGO_SIZE,
-    height: LOGO_SIZE,
-    resizeMode: 'contain',
-  },
-  mainMessage: {
-    fontSize: 42,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: '#D4AF37',
-    textAlign: 'center',
-    marginBottom: 24,
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-  },
-  dateText: {
-    fontSize: 18,
-    fontFamily: 'CormorantGaramond_300Light',
-    color: '#D4AF37',
-    textAlign: 'center',
-    marginBottom: 48,
-    letterSpacing: 1,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    marginBottom: 48,
-  },
-  statBox: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  statValue: {
-    fontSize: 36,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: '#D4AF37',
-    marginBottom: 8,
-  },
-  statLabel: {
-    fontSize: 14,
-    fontFamily: 'CormorantGaramond_400Regular',
-    color: '#D4AF37',
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-  },
-  memberIdContainer: {
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-  memberIdLabel: {
-    fontSize: 12,
-    fontFamily: 'CormorantGaramond_400Regular',
-    color: '#D4AF37',
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-    marginBottom: 4,
-  },
-  memberIdValue: {
-    fontSize: 16,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: '#D4AF37',
-    letterSpacing: 3,
-  },
-  bottomMessage: {
-    fontSize: 16,
-    fontFamily: 'CormorantGaramond_300Light',
-    color: '#D4AF37',
-    textAlign: 'center',
-    fontStyle: 'italic',
-    letterSpacing: 1,
-  },
-  topRightButtons: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 60 : 40,
-    right: 20,
-    flexDirection: 'row',
-    gap: 12,
-    zIndex: 10,
-  },
-  iconButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.3)',
-  },
-  flagButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.3)',
-    overflow: 'hidden',
-  },
-  flagEmoji: {
-    fontSize: 24,
-  },
-});
-
 export default function HomeScreen() {
-  const { colors } = useTheme();
   const [currentDate, setCurrentDate] = useState('');
   const [streak, setStreak] = useState(0);
-  const [memberId, setMemberId] = useState('AURA-LX-0000');
+  const [memberId, setMemberId] = useState('');
   const [languageCode, setLanguageCode] = useState('en');
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
-
-  const [fontsLoaded] = useFonts({
-    PlayfairDisplay_400Regular,
-    PlayfairDisplay_700Bold,
-    CormorantGaramond_300Light,
-    CormorantGaramond_400Regular,
-  });
 
   useEffect(() => {
     initializeMembershipId();
@@ -209,7 +76,8 @@ export default function HomeScreen() {
                    lang === 'ko' ? 'ko-KR' :
                    lang === 'ar' ? 'ar-SA' :
                    lang === 'hi' ? 'hi-IN' :
-                   lang === 'pl' ? 'pl-PL' : 'en-US';
+                   lang === 'pl' ? 'pl-PL' :
+                   lang === 'ro' ? 'ro-RO' : 'en-US';
     
     const formattedDate = today.toLocaleDateString(locale, options);
     setCurrentDate(formattedDate);
@@ -265,10 +133,6 @@ export default function HomeScreen() {
     updateDate(newLanguageCode);
   };
 
-  if (!fontsLoaded) {
-    return null;
-  }
-
   const t = translations[languageCode] || translations.en;
 
   return (
@@ -279,11 +143,11 @@ export default function HomeScreen() {
       >
         <View style={styles.topRightButtons}>
           <TouchableOpacity 
-            style={styles.flagButton}
+            style={styles.iconButton}
             onPress={() => setShowLanguageSelector(true)}
             activeOpacity={0.7}
           >
-            <Text style={styles.flagEmoji}>{countryFlags[languageCode]}</Text>
+            <IconSymbol name="globe" size={20} color="#D4AF37" />
           </TouchableOpacity>
           
           <TouchableOpacity 
@@ -326,10 +190,12 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <View style={styles.memberIdContainer}>
-          <Text style={styles.memberIdLabel}>{t.memberId}</Text>
-          <Text style={styles.memberIdValue}>{memberId}</Text>
-        </View>
+        {memberId && (
+          <View style={styles.memberIdContainer}>
+            <Text style={styles.memberIdLabel}>{t.memberId}</Text>
+            <Text style={styles.memberIdValue}>{memberId}</Text>
+          </View>
+        )}
 
         <Text style={styles.bottomMessage}>
           {t.becauseYouDeserve}
@@ -349,3 +215,105 @@ export default function HomeScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  gradient: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+  },
+  topRightButtons: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? 60 : 40,
+    right: 20,
+    flexDirection: 'row',
+    gap: 12,
+    zIndex: 10,
+  },
+  iconButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.3)',
+  },
+  logoContainer: {
+    marginBottom: 40,
+    alignItems: 'center',
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain',
+  },
+  mainMessage: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    textAlign: 'center',
+    marginBottom: 16,
+    letterSpacing: 1,
+  },
+  dateText: {
+    fontSize: 16,
+    color: '#D4AF37',
+    textAlign: 'center',
+    marginBottom: 40,
+    opacity: 0.8,
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginBottom: 40,
+  },
+  statBox: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  statValue: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    marginBottom: 8,
+  },
+  statLabel: {
+    fontSize: 12,
+    color: '#D4AF37',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    opacity: 0.8,
+  },
+  memberIdContainer: {
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+  memberIdLabel: {
+    fontSize: 11,
+    color: '#D4AF37',
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+    marginBottom: 4,
+    opacity: 0.7,
+  },
+  memberIdValue: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    letterSpacing: 2,
+  },
+  bottomMessage: {
+    fontSize: 14,
+    color: '#D4AF37',
+    textAlign: 'center',
+    fontStyle: 'italic',
+    opacity: 0.8,
+  },
+});

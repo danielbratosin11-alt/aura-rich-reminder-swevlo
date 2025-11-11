@@ -1,114 +1,19 @@
 
-import { LinearGradient } from "expo-linear-gradient";
-import { IconSymbol } from "@/components/IconSymbol";
-import { useTheme } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { translations, countryFlags } from "@/utils/translations";
-import { View, Text, StyleSheet, ScrollView, Platform, TouchableOpacity } from "react-native";
-import { useFonts, PlayfairDisplay_400Regular, PlayfairDisplay_700Bold } from "@expo-google-fonts/playfair-display";
+import { View, Text, StyleSheet, ScrollView, Platform } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getMembershipId } from "@/utils/membershipIdGenerator";
-import { CormorantGaramond_300Light, CormorantGaramond_400Regular } from "@expo-google-fonts/cormorant-garamond";
+import { translations } from "@/utils/translations";
 
 const LANGUAGE_KEY = '@aura_language';
 const STREAK_KEY = '@aura_streak';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  gradient: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 24,
-    paddingTop: Platform.OS === 'ios' ? 60 : 40,
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 40,
-  },
-  title: {
-    fontSize: 36,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: '#D4AF37',
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    fontFamily: 'CormorantGaramond_300Light',
-    color: '#D4AF37',
-    letterSpacing: 1,
-    fontStyle: 'italic',
-  },
-  section: {
-    marginBottom: 32,
-    backgroundColor: 'rgba(212, 175, 55, 0.05)',
-    borderRadius: 16,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.2)',
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: '#D4AF37',
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-    marginBottom: 16,
-  },
-  infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(212, 175, 55, 0.1)',
-  },
-  infoLabel: {
-    fontSize: 14,
-    fontFamily: 'CormorantGaramond_400Regular',
-    color: '#D4AF37',
-    letterSpacing: 1,
-  },
-  infoValue: {
-    fontSize: 16,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: '#D4AF37',
-    letterSpacing: 1,
-  },
-  memberIdValue: {
-    fontSize: 16,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: '#D4AF37',
-    letterSpacing: 2,
-  },
-  descriptionText: {
-    fontSize: 14,
-    fontFamily: 'CormorantGaramond_300Light',
-    color: '#D4AF37',
-    lineHeight: 22,
-    letterSpacing: 0.5,
-    fontStyle: 'italic',
-  },
-});
-
 export default function ProfileScreen() {
-  const [memberId, setMemberId] = useState('AURA-LX-0000');
+  const [memberId, setMemberId] = useState('');
   const [streak, setStreak] = useState(0);
   const [languageCode, setLanguageCode] = useState('en');
-
-  const [fontsLoaded] = useFonts({
-    PlayfairDisplay_400Regular,
-    PlayfairDisplay_700Bold,
-    CormorantGaramond_300Light,
-    CormorantGaramond_400Regular,
-  });
-
-  const { colors } = useTheme();
 
   useEffect(() => {
     loadProfileData();
@@ -134,10 +39,6 @@ export default function ProfileScreen() {
       console.error('Error loading profile data:', error);
     }
   };
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   const t = translations[languageCode] || translations.en;
 
@@ -178,8 +79,7 @@ export default function ProfileScreen() {
               <Text style={styles.sectionTitle}>About Your ID</Text>
               <Text style={styles.descriptionText}>
                 Your membership ID is unique and exclusive. The "LX" designation represents Luxury and Exclusivity, 
-                reserved for elite members. Your ID is permanent and will never change, regardless of your language 
-                preferences or app settings.
+                reserved for elite members. Your ID is permanent and will never change.
               </Text>
             </View>
 
@@ -197,3 +97,82 @@ export default function ProfileScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  gradient: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 24,
+    paddingTop: Platform.OS === 'ios' ? 20 : 20,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    letterSpacing: 1,
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#D4AF37',
+    letterSpacing: 0.5,
+    fontStyle: 'italic',
+    opacity: 0.8,
+  },
+  section: {
+    marginBottom: 32,
+    backgroundColor: 'rgba(212, 175, 55, 0.05)',
+    borderRadius: 16,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.2)',
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    marginBottom: 16,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(212, 175, 55, 0.1)',
+  },
+  infoLabel: {
+    fontSize: 14,
+    color: '#D4AF37',
+    letterSpacing: 0.5,
+  },
+  infoValue: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    letterSpacing: 0.5,
+  },
+  memberIdValue: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    letterSpacing: 2,
+  },
+  descriptionText: {
+    fontSize: 14,
+    color: '#D4AF37',
+    lineHeight: 22,
+    letterSpacing: 0.3,
+    opacity: 0.9,
+  },
+});

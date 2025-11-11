@@ -1,6 +1,5 @@
 
-import "react-native-reanimated";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -16,8 +15,8 @@ import {
 } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { WidgetProvider } from "@/contexts/WidgetContext";
+import "react-native-reanimated";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
@@ -53,19 +52,6 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-
-  const CustomDefaultTheme: Theme = {
-    ...DefaultTheme,
-    dark: false,
-    colors: {
-      primary: "#D4AF37",
-      background: "#000000",
-      card: "#0A0A0A",
-      text: "#D4AF37",
-      border: "#D4AF37",
-      notification: "#FFD700",
-    },
-  };
 
   const CustomDarkTheme: Theme = {
     ...DarkTheme,

@@ -11,92 +11,93 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
-import { BlurView } from 'expo-blur';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {
   registerForPushNotificationsAsync,
   scheduleDailyNotification,
   cancelDailyNotification,
   getNotificationSettings,
 } from '../utils/notificationManager';
-import { colors } from '../styles/commonStyles';
-
-const LANGUAGE_KEY = '@aura_language';
 
 interface NotificationSettingsProps {
   visible: boolean;
   onClose: () => void;
 }
 
+const LANGUAGE_KEY = '@aura_language';
+
 export default function NotificationSettings({ visible, onClose }: NotificationSettingsProps) {
-  const [enabled, setEnabled] = useState(false);
-  const [time, setTime] = useState(new Date());
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [notificationTime, setNotificationTime] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const [languageCode, setLanguageCode] = useState('en');
 
   useEffect(() => {
-    loadSettings();
+    if (visible) {
+      loadSettings();
+    }
   }, [visible]);
 
   const loadSettings = async () => {
     try {
       const settings = await getNotificationSettings();
-      const savedLanguage = await AsyncStorage.getItem(LANGUAGE_KEY);
-      
-      setEnabled(settings.enabled);
-      
-      const newTime = new Date();
-      newTime.setHours(settings.time.hour);
-      newTime.setMinutes(settings.time.minute);
-      setTime(newTime);
-      
-      if (savedLanguage) {
-        setLanguageCode(savedLanguage);
+      if (settings) {
+        setNotificationsEnabled(settings.enabled);
+        const time = new Date();
+        time.setHours(settings.hour, settings.minute);
+        setNotificationTime(time);
       }
     } catch (error) {
-      console.error('Error loading settings:', error);
+      console.error('Error loading notification settings:', error);
     }
   };
 
   const handleToggle = async (value: boolean) => {
     try {
+      setNotificationsEnabled(value);
+      
       if (value) {
         const hasPermission = await registerForPushNotificationsAsync();
-        if (hasPermission) {
-          const hour = time.getHours();
-          const minute = time.getMinutes();
-          await scheduleDailyNotification(languageCode, hour, minute);
-          setEnabled(true);
-          Alert.alert(
-            'Notifications Enabled',
-            `You will receive a daily reminder at ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`
-          );
-        } else {
+        if (!hasPermission) {
           Alert.alert(
             'Permission Required',
             'Please enable notifications in your device settings to receive daily reminders.'
           );
+          setNotificationsEnabled(false);
+          return;
         }
+        
+        const languageCode = await AsyncStorage.getItem(LANGUAGE_KEY) || 'en';
+        await scheduleDailyNotification(
+          languageCode,
+          notificationTime.getHours(),
+          notificationTime.getMinutes()
+        );
       } else {
         await cancelDailyNotification();
-        setEnabled(false);
-        Alert.alert('Notifications Disabled', 'Daily reminders have been turned off.');
       }
     } catch (error) {
       console.error('Error toggling notifications:', error);
-      Alert.alert('Error', 'Failed to update notification settings.');
+      Alert.alert('Error', 'Failed to update notification settings');
     }
   };
 
   const handleTimeChange = async (event: any, selectedDate?: Date) => {
     setShowTimePicker(Platform.OS === 'ios');
     
-    if (selectedDate && enabled) {
-      setTime(selectedDate);
-      const hour = selectedDate.getHours();
-      const minute = selectedDate.getMinutes();
-      await scheduleDailyNotification(languageCode, hour, minute);
+    if (selectedDate && notificationsEnabled) {
+      setNotificationTime(selectedDate);
+      
+      try {
+        const languageCode = await AsyncStorage.getItem(LANGUAGE_KEY) || 'en';
+        await scheduleDailyNotification(
+          languageCode,
+          selectedDate.getHours(),
+          selectedDate.getMinutes()
+        );
+      } catch (error) {
+        console.error('Error updating notification time:', error);
+      }
     }
   };
 
@@ -107,56 +108,38 @@ export default function NotificationSettings({ visible, onClose }: NotificationS
       animationType="fade"
       onRequestClose={onClose}
     >
-      <Pressable style={styles.overlay} onPress={onClose}>
-        <Pressable style={styles.modalContainer} onPress={(e) => e.stopPropagation()}>
-          <BlurView intensity={Platform.OS === 'ios' ? 80 : 100} style={styles.blurContainer}>
-            <View style={styles.content}>
-              {/* Header */}
-              <View style={styles.header}>
-                <Text style={styles.title}>Notifications</Text>
-                <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                  <Text style={styles.closeButtonText}>✕</Text>
-                </TouchableOpacity>
-              </View>
+      <Pressable style={styles.modalOverlay} onPress={onClose}>
+        <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
+          <Text style={styles.title}>Notification Settings</Text>
+          
+          <View style={styles.settingRow}>
+            <Text style={styles.settingLabel}>Daily Reminders</Text>
+            <Switch
+              value={notificationsEnabled}
+              onValueChange={handleToggle}
+              trackColor={{ false: '#3e3e3e', true: '#D4AF37' }}
+              thumbColor={notificationsEnabled ? '#FFD700' : '#f4f3f4'}
+            />
+          </View>
 
-              {/* Enable/Disable Toggle */}
-              <View style={styles.settingRow}>
-                <View style={styles.settingInfo}>
-                  <Text style={styles.settingLabel}>Daily Reminder</Text>
-                </View>
-                <Switch
-                  value={enabled}
-                  onValueChange={handleToggle}
-                  trackColor={{ false: '#3e3e3e', true: colors.primary }}
-                  thumbColor={enabled ? colors.secondary : '#f4f3f4'}
-                  ios_backgroundColor="#3e3e3e"
-                />
-              </View>
-
-              {/* Time Picker */}
-              {enabled && (
-                <View style={styles.settingRow}>
-                  <View style={styles.settingInfo}>
-                    <Text style={styles.settingLabel}>Notification Time</Text>
-                    <Text style={styles.settingDescription}>
-                      Choose when to receive your reminder
-                    </Text>
-                  </View>
-                  <TouchableOpacity
-                    style={styles.timeButton}
-                    onPress={() => setShowTimePicker(true)}
-                  >
-                    <Text style={styles.timeButtonText}>
-                      {time.getHours().toString().padStart(2, '0')}:
-                      {time.getMinutes().toString().padStart(2, '0')}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              )}
+          {notificationsEnabled && (
+            <View style={styles.timeSection}>
+              <Text style={styles.timeLabel}>Notification Time</Text>
+              <TouchableOpacity
+                style={styles.timeButton}
+                onPress={() => setShowTimePicker(true)}
+              >
+                <Text style={styles.timeText}>
+                  {notificationTime.toLocaleTimeString([], { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                  })}
+                </Text>
+              </TouchableOpacity>
 
               {showTimePicker && (
                 <DateTimePicker
-                  value={time}
+                  value={notificationTime}
                   mode="time"
                   is24Hour={true}
                   display={Platform.OS === 'ios' ? 'spinner' : 'default'}
@@ -164,7 +147,11 @@ export default function NotificationSettings({ visible, onClose }: NotificationS
                 />
               )}
             </View>
-          </BlurView>
+          )}
+
+          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+            <Text style={styles.closeButtonText}>Close</Text>
+          </TouchableOpacity>
         </Pressable>
       </Pressable>
     </Modal>
@@ -172,98 +159,82 @@ export default function NotificationSettings({ visible, onClose }: NotificationS
 }
 
 const styles = StyleSheet.create({
-  overlay: {
+  modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
   },
-  modalContainer: {
-    width: '90%',
-    maxWidth: 500,
+  modalContent: {
+    width: '85%',
+    backgroundColor: '#0A0A0A',
     borderRadius: 20,
-    overflow: 'hidden',
+    padding: 24,
     borderWidth: 1,
-    borderColor: colors.primary,
-  },
-  blurContainer: {
-    backgroundColor: Platform.OS === 'ios' ? 'rgba(10, 10, 10, 0.8)' : colors.backgroundAlt,
-  },
-  content: {
-    padding: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 30,
+    borderColor: '#D4AF37',
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: colors.primary,
-    letterSpacing: 1,
-  },
-  closeButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    fontSize: 24,
-    color: colors.primary,
-    fontWeight: '300',
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    textAlign: 'center',
+    marginBottom: 24,
+    letterSpacing: 0.5,
   },
   settingRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 15,
+    paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(212, 175, 55, 0.2)',
   },
-  settingInfo: {
-    flex: 1,
-    marginRight: 15,
-  },
   settingLabel: {
     fontSize: 16,
-    fontWeight: '600',
-    color: colors.primary,
-    marginBottom: 4,
+    color: '#D4AF37',
+    letterSpacing: 0.3,
   },
-  settingDescription: {
-    fontSize: 13,
-    color: colors.textSecondary,
+  timeSection: {
+    marginTop: 20,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(212, 175, 55, 0.2)',
+  },
+  timeLabel: {
+    fontSize: 14,
+    color: '#D4AF37',
+    marginBottom: 12,
+    letterSpacing: 0.3,
+    opacity: 0.8,
   },
   timeButton: {
     backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: colors.primary,
-    borderRadius: 8,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    borderColor: '#D4AF37',
   },
-  timeButtonText: {
+  timeText: {
     fontSize: 18,
-    fontWeight: '600',
-    color: colors.primary,
-  },
-  infoContainer: {
-    marginTop: 20,
-    padding: 15,
-    backgroundColor: 'rgba(212, 175, 55, 0.05)',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.2)',
-  },
-  infoText: {
-    fontSize: 13,
-    color: colors.textSecondary,
-    lineHeight: 20,
+    fontWeight: 'bold',
+    color: '#D4AF37',
     textAlign: 'center',
+    letterSpacing: 1,
+  },
+  closeButton: {
+    marginTop: 24,
+    paddingVertical: 14,
+    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#D4AF37',
+  },
+  closeButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    textAlign: 'center',
+    letterSpacing: 0.5,
   },
 });

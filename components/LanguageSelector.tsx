@@ -1,9 +1,5 @@
 
-import { scheduleDailyNotification } from '../utils/notificationManager';
-import { translations, languageNames, countryFlags } from '../utils/translations';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect } from 'react';
-import { colors } from '../styles/commonStyles';
 import {
   View,
   Text,
@@ -11,11 +7,12 @@ import {
   Modal,
   TouchableOpacity,
   FlatList,
-  TextInput,
   Platform,
   Pressable,
 } from 'react-native';
-import { BlurView } from 'expo-blur';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { scheduleDailyNotification } from '../utils/notificationManager';
+import { translations, languageNames } from '../utils/translations';
 
 interface LanguageSelectorProps {
   visible: boolean;
@@ -24,94 +21,6 @@ interface LanguageSelectorProps {
 }
 
 const LANGUAGE_KEY = '@aura_language';
-
-const styles = StyleSheet.create({
-  modalOverlay: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.85)',
-  },
-  modalContent: {
-    width: '85%',
-    maxHeight: '70%',
-    backgroundColor: colors.background,
-    borderRadius: 20,
-    padding: 24,
-    borderWidth: 1,
-    borderColor: colors.gold,
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.gold,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 12,
-      },
-      android: {
-        elevation: 8,
-      },
-    }),
-  },
-  title: {
-    fontSize: 24,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: colors.gold,
-    textAlign: 'center',
-    marginBottom: 20,
-    letterSpacing: 1,
-  },
-  languageItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(212, 175, 55, 0.2)',
-  },
-  languageItemContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  flag: {
-    fontSize: 28,
-    marginRight: 16,
-  },
-  languageName: {
-    fontSize: 18,
-    fontFamily: 'CormorantGaramond_400Regular',
-    color: colors.text,
-    letterSpacing: 0.5,
-  },
-  selectedBadge: {
-    backgroundColor: colors.gold,
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  selectedBadgeText: {
-    fontSize: 11,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: colors.background,
-    letterSpacing: 1,
-  },
-  closeButton: {
-    marginTop: 16,
-    paddingVertical: 14,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.gold,
-  },
-  closeButtonText: {
-    fontSize: 16,
-    fontFamily: 'PlayfairDisplay_700Bold',
-    color: colors.gold,
-    textAlign: 'center',
-    letterSpacing: 1,
-  },
-});
 
 export default function LanguageSelector({ visible, onClose, onLanguageChange }: LanguageSelectorProps) {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
@@ -159,22 +68,21 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
     }
   };
 
-  const renderLanguageItem = ({ item }: { item: { code: string; name: string; flag: string } }) => {
+  const renderLanguageItem = ({ item }: { item: { code: string; name: string } }) => {
     const isSelected = item.code === selectedLanguage;
     
     return (
       <TouchableOpacity
-        style={styles.languageItem}
+        style={[styles.languageItem, isSelected && styles.languageItemSelected]}
         onPress={() => saveLanguage(item.code)}
         activeOpacity={0.7}
       >
-        <View style={styles.languageItemContent}>
-          <Text style={styles.flag}>{item.flag}</Text>
-          <Text style={styles.languageName}>{item.name}</Text>
-        </View>
+        <Text style={[styles.languageName, isSelected && styles.languageNameSelected]}>
+          {item.name}
+        </Text>
         {isSelected && (
           <View style={styles.selectedBadge}>
-            <Text style={styles.selectedBadgeText}>SELECTED</Text>
+            <Text style={styles.selectedBadgeText}>✓</Text>
           </View>
         )}
       </TouchableOpacity>
@@ -184,7 +92,6 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
   const languages = Object.keys(languageNames).map(code => ({
     code,
     name: languageNames[code],
-    flag: countryFlags[code],
   }));
 
   return (
@@ -206,10 +113,86 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
           />
           
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-            <Text style={styles.closeButtonText}>CLOSE</Text>
+            <Text style={styles.closeButtonText}>Close</Text>
           </TouchableOpacity>
         </Pressable>
       </Pressable>
     </Modal>
   );
 }
+
+const styles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+  },
+  modalContent: {
+    width: '85%',
+    maxHeight: '70%',
+    backgroundColor: '#0A0A0A',
+    borderRadius: 20,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: '#D4AF37',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    textAlign: 'center',
+    marginBottom: 20,
+    letterSpacing: 0.5,
+  },
+  languageItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(212, 175, 55, 0.2)',
+    borderRadius: 8,
+    marginBottom: 4,
+  },
+  languageItemSelected: {
+    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+  },
+  languageName: {
+    fontSize: 16,
+    color: '#D4AF37',
+    letterSpacing: 0.3,
+  },
+  languageNameSelected: {
+    fontWeight: 'bold',
+  },
+  selectedBadge: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: '#D4AF37',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectedBadgeText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+  closeButton: {
+    marginTop: 16,
+    paddingVertical: 14,
+    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#D4AF37',
+  },
+  closeButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#D4AF37',
+    textAlign: 'center',
+    letterSpacing: 0.5,
+  },
+});
