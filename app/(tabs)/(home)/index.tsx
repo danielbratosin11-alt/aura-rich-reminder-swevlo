@@ -138,7 +138,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#1a1a1a', '#000000']}
+        colors={['#000000', '#0a0a0a', '#000000']}
         style={styles.gradient}
       >
         <View style={styles.topRightButtons}>
@@ -163,6 +163,7 @@ export default function HomeScreen() {
           <Image 
             source={require('@/assets/images/d523516b-8bc5-4ca1-ac36-62fd57179c70.jpeg')}
             style={styles.logo}
+            resizeMode="contain"
           />
         </View>
 
@@ -176,26 +177,19 @@ export default function HomeScreen() {
 
         <View style={styles.statsContainer}>
           <View style={styles.statBox}>
-            <Text style={styles.statValue}>{streak}</Text>
             <Text style={styles.statLabel}>
               {t.dayStreak}
             </Text>
+            <Text style={styles.statValue}>{streak}</Text>
           </View>
 
           <View style={styles.statBox}>
-            <Text style={styles.statValue}>∞</Text>
             <Text style={styles.statLabel}>
               {t.wealthLevel}
             </Text>
+            <Text style={styles.statValue}>∞</Text>
           </View>
         </View>
-
-        {memberId && (
-          <View style={styles.memberIdContainer}>
-            <Text style={styles.memberIdLabel}>{t.memberId}</Text>
-            <Text style={styles.memberIdValue}>{memberId}</Text>
-          </View>
-        )}
 
         <Text style={styles.bottomMessage}>
           {t.becauseYouDeserve}
@@ -219,6 +213,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000000',
   },
   gradient: {
     flex: 1,
@@ -238,103 +233,88 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'rgba(212, 175, 55, 0.3)',
   },
   logoContainer: {
-    marginBottom: 40,
+    marginBottom: 30,
     alignItems: 'center',
   },
   logo: {
-    width: 120,
-    height: 120,
-    resizeMode: 'contain',
+    width: 80,
+    height: 80,
   },
   mainMessage: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#D4AF37',
-    textAlign: 'center',
-    marginBottom: 16,
-    letterSpacing: 1,
-    textShadowColor: 'rgba(212, 175, 55, 0.8)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 10,
-  },
-  dateText: {
-    fontSize: 16,
-    color: '#D4AF37',
-    textAlign: 'center',
-    marginBottom: 40,
-    opacity: 0.9,
-    textShadowColor: 'rgba(212, 175, 55, 0.5)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    marginBottom: 40,
-  },
-  statBox: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  statValue: {
     fontSize: 36,
     fontWeight: 'bold',
     color: '#D4AF37',
-    marginBottom: 8,
-    textShadowColor: 'rgba(212, 175, 55, 0.8)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 12,
+    textAlign: 'center',
+    marginBottom: 20,
+    letterSpacing: 0.5,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
+  },
+  dateText: {
+    fontSize: 14,
+    color: '#D4AF37',
+    textAlign: 'center',
+    marginBottom: 50,
+    letterSpacing: 0.5,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    gap: 16,
+    marginBottom: 50,
+    paddingHorizontal: 20,
+  },
+  statBox: {
+    flex: 1,
+    maxWidth: 150,
+    aspectRatio: 1,
+    borderWidth: 2,
+    borderColor: '#D4AF37',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 16,
   },
   statLabel: {
-    fontSize: 12,
-    color: '#D4AF37',
-    letterSpacing: 1,
-    textTransform: 'uppercase',
-    opacity: 0.9,
-    textShadowColor: 'rgba(212, 175, 55, 0.5)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 6,
-  },
-  memberIdContainer: {
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-  memberIdLabel: {
     fontSize: 11,
     color: '#D4AF37',
     letterSpacing: 1.5,
     textTransform: 'uppercase',
-    marginBottom: 4,
-    opacity: 0.8,
-    textShadowColor: 'rgba(212, 175, 55, 0.5)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 6,
+    marginBottom: 12,
+    textAlign: 'center',
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
-  memberIdValue: {
-    fontSize: 14,
+  statValue: {
+    fontSize: 48,
     fontWeight: 'bold',
     color: '#D4AF37',
-    letterSpacing: 2,
-    textShadowColor: 'rgba(212, 175, 55, 0.7)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
   bottomMessage: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#D4AF37',
     textAlign: 'center',
     fontStyle: 'italic',
-    opacity: 0.9,
-    textShadowColor: 'rgba(212, 175, 55, 0.5)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
+    letterSpacing: 0.3,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
 });

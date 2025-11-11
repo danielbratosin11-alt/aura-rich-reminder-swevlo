@@ -45,7 +45,7 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#000000', '#1a1a1a', '#000000']}
+        colors={['#000000', '#0a0a0a', '#000000']}
         style={styles.gradient}
       >
         <SafeAreaView style={{ flex: 1 }} edges={['top']}>
@@ -101,6 +101,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000000',
   },
   gradient: {
     flex: 1,
@@ -119,27 +120,26 @@ const styles = StyleSheet.create({
     color: '#D4AF37',
     letterSpacing: 1,
     marginBottom: 8,
-    textShadowColor: 'rgba(212, 175, 55, 0.8)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 10,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
   subtitle: {
     fontSize: 14,
     color: '#D4AF37',
     letterSpacing: 0.5,
     fontStyle: 'italic',
-    opacity: 0.9,
-    textShadowColor: 'rgba(212, 175, 55, 0.5)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
   section: {
     marginBottom: 32,
-    backgroundColor: 'rgba(212, 175, 55, 0.05)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 16,
     padding: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(212, 175, 55, 0.2)',
+    borderWidth: 2,
+    borderColor: '#D4AF37',
   },
   sectionTitle: {
     fontSize: 16,
@@ -148,9 +148,9 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textTransform: 'uppercase',
     marginBottom: 16,
-    textShadowColor: 'rgba(212, 175, 55, 0.6)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
   infoRow: {
     flexDirection: 'row',
@@ -158,42 +158,41 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(212, 175, 55, 0.1)',
+    borderBottomColor: 'rgba(212, 175, 55, 0.2)',
   },
   infoLabel: {
     fontSize: 14,
     color: '#D4AF37',
     letterSpacing: 0.5,
-    textShadowColor: 'rgba(212, 175, 55, 0.4)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 6,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
   infoValue: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#D4AF37',
     letterSpacing: 0.5,
-    textShadowColor: 'rgba(212, 175, 55, 0.6)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
   memberIdValue: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#D4AF37',
     letterSpacing: 2,
-    textShadowColor: 'rgba(212, 175, 55, 0.6)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
   descriptionText: {
     fontSize: 14,
     color: '#D4AF37',
     lineHeight: 22,
     letterSpacing: 0.3,
-    opacity: 0.9,
-    textShadowColor: 'rgba(212, 175, 55, 0.4)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 6,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
 });

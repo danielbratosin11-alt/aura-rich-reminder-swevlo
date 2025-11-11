@@ -47,19 +47,16 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
       await AsyncStorage.setItem(LANGUAGE_KEY, languageCode);
       setSelectedLanguage(languageCode);
       
-      // Reschedule notification with new language
       const notificationSettings = await AsyncStorage.getItem('@aura_notification_time');
       if (notificationSettings) {
         const { hour, minute } = JSON.parse(notificationSettings);
         await scheduleDailyNotification(languageCode, hour, minute);
       }
       
-      // Call the callback to update parent component
       if (onLanguageChange) {
         onLanguageChange(languageCode);
       }
       
-      // Close modal after selection
       setTimeout(() => {
         onClose();
       }, 300);
@@ -126,15 +123,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
   },
   modalContent: {
     width: '85%',
     maxHeight: '70%',
-    backgroundColor: '#0A0A0A',
-    borderRadius: 20,
+    backgroundColor: '#000000',
+    borderRadius: 16,
     padding: 24,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#D4AF37',
   },
   title: {
@@ -144,9 +141,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     letterSpacing: 0.5,
-    textShadowColor: 'rgba(212, 175, 55, 0.6)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
   languageItem: {
     flexDirection: 'row',
@@ -161,20 +158,19 @@ const styles = StyleSheet.create({
   },
   languageItemSelected: {
     backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    borderWidth: 1,
+    borderColor: '#D4AF37',
   },
   languageName: {
     fontSize: 16,
     color: '#D4AF37',
     letterSpacing: 0.3,
-    textShadowColor: 'rgba(212, 175, 55, 0.4)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 6,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
   languageNameSelected: {
     fontWeight: 'bold',
-    textShadowColor: 'rgba(212, 175, 55, 0.6)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 8,
   },
   selectedBadge: {
     width: 24,
@@ -192,9 +188,9 @@ const styles = StyleSheet.create({
   closeButton: {
     marginTop: 16,
     paddingVertical: 14,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 12,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#D4AF37',
   },
   closeButtonText: {
@@ -203,8 +199,8 @@ const styles = StyleSheet.create({
     color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 0.5,
-    textShadowColor: 'rgba(212, 175, 55, 0.5)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 6,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 1,
   },
 });
