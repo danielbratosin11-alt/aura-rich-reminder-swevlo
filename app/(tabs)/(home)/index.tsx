@@ -9,8 +9,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { IconSymbol } from "@/components/IconSymbol";
 import LanguageSelector from "@/components/LanguageSelector";
 import NotificationSettings from "@/components/NotificationSettings";
-import { translations } from "@/utils/translations";
+import { translations, countryFlags } from "@/utils/translations";
 import { registerForPushNotificationsAsync, scheduleDailyNotification } from "@/utils/notificationManager";
+import { generateMembershipId, getMembershipId } from "@/utils/membershipIdGenerator";
 
 const LAST_OPENED_KEY = "@aura_last_opened";
 const STREAK_KEY = "@aura_streak";
@@ -21,15 +22,13 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 // Calculate responsive sizes based on screen dimensions
 const LOGO_SIZE = Math.min(SCREEN_WIDTH * 0.3, SCREEN_HEIGHT * 0.15, 150);
-const MAIN_MESSAGE_SIZE = Math.min(SCREEN_WIDTH * 0.1, 42);
-const STAT_VALUE_SIZE = Math.min(SCREEN_WIDTH * 0.1, 42);
-const INFINITY_SIZE = Math.min(SCREEN_WIDTH * 0.13, 56);
 
 export default function HomeScreen() {
   const theme = useTheme();
   const [currentDate, setCurrentDate] = useState("");
   const [dayStreak, setDayStreak] = useState(0);
   const [languageCode, setLanguageCode] = useState("en");
+  const [memberId, setMemberId] = useState("");
   const [showLanguageSelector, setShowLanguageSelector] = useState(false);
   const [showNotificationSettings, setShowNotificationSettings] = useState(false);
   const fadeAnim = useState(new Animated.Value(0))[0];
@@ -59,6 +58,9 @@ export default function HomeScreen() {
 
     // Initialize notifications
     initializeNotifications();
+
+    // Initialize membership ID
+    initializeMembershipId();
 
     // Animate entrance
     Animated.parallel([
@@ -113,6 +115,22 @@ export default function HomeScreen() {
     ).start();
   };
 
+  const initializeMembershipId = async () => {
+    try {
+      const existingId = await getMembershipId();
+      if (existingId) {
+        setMemberId(existingId);
+      } else {
+        const saved = await AsyncStorage.getItem(LANGUAGE_KEY);
+        const lang = saved || 'en';
+        const newId = await generateMembershipId(lang);
+        setMemberId(newId);
+      }
+    } catch (error) {
+      console.error('Error initializing membership ID:', error);
+    }
+  };
+
   const loadLanguageAndUpdateDate = async () => {
     try {
       const saved = await AsyncStorage.getItem(LANGUAGE_KEY);
@@ -150,32 +168,7 @@ export default function HomeScreen() {
       ko: 'ko-KR',
       ar: 'ar-SA',
       hi: 'hi-IN',
-      bn: 'bn-BD',
-      pa: 'pa-IN',
-      te: 'te-IN',
-      mr: 'mr-IN',
-      ta: 'ta-IN',
-      tr: 'tr-TR',
-      vi: 'vi-VN',
       pl: 'pl-PL',
-      uk: 'uk-UA',
-      nl: 'nl-NL',
-      ro: 'ro-RO',
-      el: 'el-GR',
-      cs: 'cs-CZ',
-      sv: 'sv-SE',
-      hu: 'hu-HU',
-      fi: 'fi-FI',
-      no: 'no-NO',
-      da: 'da-DK',
-      th: 'th-TH',
-      id: 'id-ID',
-      ms: 'ms-MY',
-      fil: 'fil-PH',
-      he: 'he-IL',
-      fa: 'fa-IR',
-      ur: 'ur-PK',
-      sw: 'sw-KE',
     };
     
     const locale = localeMap[lang] || 'en-US';
@@ -239,9 +232,15 @@ export default function HomeScreen() {
     }
   };
 
-  const handleLanguageChange = (newLanguageCode: string) => {
+  const handleLanguageChange = async (newLanguageCode: string) => {
     setLanguageCode(newLanguageCode);
     updateDate(newLanguageCode);
+    
+    // Update membership ID with new country code
+    const newId = await getMembershipId();
+    if (newId) {
+      setMemberId(newId);
+    }
   };
 
   if (!fontsLoaded) {
@@ -258,6 +257,9 @@ export default function HomeScreen() {
   const dayStreakLabel = translation.dayStreak;
   const wealthLevelLabel = translation.wealthLevel;
   const becauseYouDeserveText = translation.becauseYouDeserve;
+  const memberIdLabel = translation.memberId;
+  const typography = translation.typography;
+  const flag = countryFlags[languageCode] || '🌐';
 
   console.log('Rendering HomeScreen with streak:', dayStreak);
 
@@ -272,6 +274,15 @@ export default function HomeScreen() {
     inputRange: [0, 0.5, 1],
     outputRange: [0.7, 1, 0.7],
   });
+
+  // Responsive typography based on screen size and language
+  const mainMessageSize = Math.min(SCREEN_WIDTH * 0.1, typography.mainMessageSize);
+  const mainMessageLineHeight = mainMessageSize * (typography.mainMessageLineHeight / typography.mainMessageSize);
+  const statLabelSize = Math.min(SCREEN_WIDTH * 0.035, typography.statLabelSize);
+  const dateSize = Math.min(SCREEN_WIDTH * 0.045, typography.dateSize);
+  const bottomMessageSize = Math.min(SCREEN_WIDTH * 0.04, typography.bottomMessageSize);
+  const statValueSize = Math.min(SCREEN_WIDTH * 0.1, 42);
+  const infinitySize = Math.min(SCREEN_WIDTH * 0.13, 56);
 
   return (
     <View style={styles.container}>
@@ -300,7 +311,7 @@ export default function HomeScreen() {
             style={styles.actionButton}
             onPress={() => setShowLanguageSelector(true)}
           >
-            <IconSymbol name="globe" size={24} color="#D4AF37" />
+            <Text style={styles.flagButton}>{flag}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.actionButton}
@@ -341,36 +352,58 @@ export default function HomeScreen() {
             />
           </View>
 
-          {/* Main Message - Responsive sizing */}
+          {/* Main Message - Localized typography */}
           <View style={styles.mainMessageContainer}>
-            <Text style={[styles.mainMessage, { fontSize: MAIN_MESSAGE_SIZE }]}>{message}</Text>
+            <Text 
+              style={[
+                styles.mainMessage, 
+                { 
+                  fontSize: mainMessageSize,
+                  lineHeight: mainMessageLineHeight,
+                }
+              ]}
+            >
+              {message}
+            </Text>
           </View>
 
           {/* Date */}
           <View style={styles.dateContainer}>
             <View style={styles.divider} />
-            <Text style={styles.dateText}>{currentDate}</Text>
+            <Text style={[styles.dateText, { fontSize: dateSize }]}>{currentDate}</Text>
             <View style={styles.divider} />
           </View>
+
+          {/* Membership ID */}
+          {memberId && (
+            <View style={styles.memberIdContainer}>
+              <Text style={styles.memberIdLabel}>{memberIdLabel}</Text>
+              <View style={styles.memberIdBadge}>
+                <Text style={styles.memberIdText}>{memberId}</Text>
+              </View>
+            </View>
+          )}
 
           {/* Stats Container */}
           <View style={styles.statsContainer}>
             {/* Day Streak */}
             <View style={styles.statBox}>
-              <Text style={styles.statLabel}>{dayStreakLabel}</Text>
-              <Text style={[styles.statValue, { fontSize: STAT_VALUE_SIZE }]}>{dayStreak}</Text>
+              <Text style={[styles.statLabel, { fontSize: statLabelSize }]}>{dayStreakLabel}</Text>
+              <Text style={[styles.statValue, { fontSize: statValueSize }]}>{dayStreak}</Text>
             </View>
 
             {/* Wealth Level */}
             <View style={styles.statBox}>
-              <Text style={styles.statLabel}>{wealthLevelLabel}</Text>
-              <Text style={[styles.infinitySymbol, { fontSize: INFINITY_SIZE }]}>∞</Text>
+              <Text style={[styles.statLabel, { fontSize: statLabelSize }]}>{wealthLevelLabel}</Text>
+              <Text style={[styles.infinitySymbol, { fontSize: infinitySize }]}>∞</Text>
             </View>
           </View>
 
           {/* Bottom Message */}
           <View style={styles.bottomMessageContainer}>
-            <Text style={styles.bottomMessage}>{becauseYouDeserveText}</Text>
+            <Text style={[styles.bottomMessage, { fontSize: bottomMessageSize }]}>
+              {becauseYouDeserveText}
+            </Text>
           </View>
         </Animated.View>
       </LinearGradient>
@@ -419,12 +452,19 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
-    borderWidth: 1,
+    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    borderWidth: 1.5,
     borderColor: '#D4AF37',
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 4,
+    shadowColor: '#D4AF37',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+  },
+  flagButton: {
+    fontSize: 24,
   },
   content: {
     flex: 1,
@@ -469,26 +509,50 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(212, 175, 55, 0.5)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 15,
-    lineHeight: MAIN_MESSAGE_SIZE * 1.3,
   },
   dateContainer: {
     alignItems: 'center',
     width: '100%',
-    marginVertical: 20,
+    marginVertical: 15,
   },
   divider: {
     width: 60,
     height: 1,
     backgroundColor: '#D4AF37',
-    marginVertical: 15,
+    marginVertical: 12,
     opacity: 0.5,
   },
   dateText: {
     fontFamily: 'CormorantGaramond_300Light',
-    fontSize: Math.min(SCREEN_WIDTH * 0.045, 18),
     color: '#D4AF37',
     textAlign: 'center',
     letterSpacing: 1,
+  },
+  memberIdContainer: {
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  memberIdLabel: {
+    fontFamily: 'CormorantGaramond_400Regular',
+    fontSize: 12,
+    color: '#C9A961',
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+    marginBottom: 8,
+  },
+  memberIdBadge: {
+    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    borderWidth: 1,
+    borderColor: '#D4AF37',
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+  },
+  memberIdText: {
+    fontFamily: 'PlayfairDisplay_700Bold',
+    fontSize: 16,
+    color: '#D4AF37',
+    letterSpacing: 2,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -496,6 +560,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     gap: 30,
+    marginTop: 10,
   },
   statBox: {
     flex: 1,
@@ -515,7 +580,6 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontFamily: 'CormorantGaramond_400Regular',
-    fontSize: Math.min(SCREEN_WIDTH * 0.035, 14),
     color: '#D4AF37',
     textTransform: 'uppercase',
     letterSpacing: 2,
@@ -544,7 +608,6 @@ const styles = StyleSheet.create({
   },
   bottomMessage: {
     fontFamily: 'CormorantGaramond_300Light',
-    fontSize: Math.min(SCREEN_WIDTH * 0.04, 16),
     color: '#D4AF37',
     fontStyle: 'italic',
     textAlign: 'center',

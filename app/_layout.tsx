@@ -1,11 +1,12 @@
+
 import "react-native-reanimated";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import { Stack, router } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { SystemBars } from "react-native-edge-to-edge";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useColorScheme, Alert } from "react-native";
+import { useColorScheme, Alert, View, Animated, Image, StyleSheet } from "react-native";
 import { useNetworkState } from "expo-network";
 import {
   DarkTheme,
@@ -16,6 +17,7 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { Button } from "@/components/button";
 import { WidgetProvider } from "@/contexts/WidgetContext";
+import { LinearGradient } from "expo-linear-gradient";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -27,13 +29,59 @@ export const unstable_settings = {
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const networkState = useNetworkState();
+  const [showCustomSplash, setShowCustomSplash] = useState(true);
+  const fadeAnim = useState(new Animated.Value(0))[0];
+  const scaleAnim = useState(new Animated.Value(0.8))[0];
+  const shimmerAnim = useState(new Animated.Value(0))[0];
+
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync();
+      // Start the custom splash animation
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 600,
+          useNativeDriver: true,
+        }),
+        Animated.spring(scaleAnim, {
+          toValue: 1,
+          tension: 50,
+          friction: 7,
+          useNativeDriver: true,
+        }),
+      ]).start();
+
+      // Shimmer effect
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(shimmerAnim, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+          Animated.timing(shimmerAnim, {
+            toValue: 0,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+
+      // Hide custom splash after 1.2 seconds
+      setTimeout(() => {
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 400,
+          useNativeDriver: true,
+        }).start(() => {
+          setShowCustomSplash(false);
+          SplashScreen.hideAsync();
+        });
+      }, 1200);
     }
   }, [loaded]);
 
@@ -53,43 +101,44 @@ export default function RootLayout() {
     return null;
   }
 
+  const shimmerOpacity = shimmerAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0.3, 1, 0.3],
+  });
+
   const CustomDefaultTheme: Theme = {
     ...DefaultTheme,
     dark: false,
     colors: {
-      primary: "rgb(0, 122, 255)", // System Blue
-      background: "rgb(242, 242, 247)", // Light mode background
-      card: "rgb(255, 255, 255)", // White cards/surfaces
-      text: "rgb(0, 0, 0)", // Black text for light mode
-      border: "rgb(216, 216, 220)", // Light gray for separators/borders
-      notification: "rgb(255, 59, 48)", // System Red
+      primary: "#D4AF37",
+      background: "#000000",
+      card: "#0A0A0A",
+      text: "#D4AF37",
+      border: "#D4AF37",
+      notification: "#FFD700",
     },
   };
 
   const CustomDarkTheme: Theme = {
     ...DarkTheme,
     colors: {
-      primary: "rgb(10, 132, 255)", // System Blue (Dark Mode)
-      background: "rgb(1, 1, 1)", // True black background for OLED displays
-      card: "rgb(28, 28, 30)", // Dark card/surface color
-      text: "rgb(255, 255, 255)", // White text for dark mode
-      border: "rgb(44, 44, 46)", // Dark gray for separators/borders
-      notification: "rgb(255, 69, 58)", // System Red (Dark Mode)
+      primary: "#D4AF37",
+      background: "#000000",
+      card: "#0A0A0A",
+      text: "#D4AF37",
+      border: "#D4AF37",
+      notification: "#FFD700",
     },
   };
+
   return (
     <>
-      <StatusBar style="auto" animated />
-        <ThemeProvider
-          value={colorScheme === "dark" ? CustomDarkTheme : CustomDefaultTheme}
-        >
-          <WidgetProvider>
-            <GestureHandlerRootView>
+      <StatusBar style="light" animated />
+      <ThemeProvider value={CustomDarkTheme}>
+        <WidgetProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
             <Stack>
-              {/* Main app with tabs */}
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-
-              {/* Modal Demo Screens */}
               <Stack.Screen
                 name="modal"
                 options={{
@@ -115,10 +164,76 @@ export default function RootLayout() {
                 }}
               />
             </Stack>
-            <SystemBars style={"auto"} />
-            </GestureHandlerRootView>
-          </WidgetProvider>
-        </ThemeProvider>
+            <SystemBars style={"light"} />
+          </GestureHandlerRootView>
+        </WidgetProvider>
+      </ThemeProvider>
+
+      {/* Custom Animated Splash Screen */}
+      {showCustomSplash && (
+        <View style={StyleSheet.absoluteFill}>
+          <LinearGradient
+            colors={['#000000', '#0A0A0A', '#000000']}
+            style={styles.splashGradient}
+          >
+            <Animated.View
+              style={[
+                styles.splashContent,
+                {
+                  opacity: fadeAnim,
+                  transform: [{ scale: scaleAnim }],
+                },
+              ]}
+            >
+              <Animated.View style={{ opacity: shimmerOpacity }}>
+                <Image
+                  source={require('../assets/images/112c7827-2c25-428e-b1c8-66d89163efd7.jpeg')}
+                  style={styles.splashLogo}
+                  resizeMode="contain"
+                />
+              </Animated.View>
+              
+              {/* Golden glow effect */}
+              <Animated.View
+                style={[
+                  styles.splashGlow,
+                  { opacity: shimmerOpacity },
+                ]}
+              />
+            </Animated.View>
+          </LinearGradient>
+        </View>
+      )}
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  splashGradient: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  splashContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  splashLogo: {
+    width: 180,
+    height: 180,
+  },
+  splashGlow: {
+    position: 'absolute',
+    width: 220,
+    height: 220,
+    borderRadius: 110,
+    backgroundColor: 'transparent',
+    borderWidth: 3,
+    borderColor: '#D4AF37',
+    shadowColor: '#D4AF37',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 30,
+    elevation: 20,
+  },
+});

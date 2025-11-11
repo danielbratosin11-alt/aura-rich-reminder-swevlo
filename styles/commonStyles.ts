@@ -5,13 +5,14 @@ export const colors = {
   primary: '#D4AF37',    // Gold
   secondary: '#FFD700',  // Bright Gold
   accent: '#C9A961',     // Muted Gold
-  background: '#000000', // Pure Black
-  backgroundAlt: '#0A0A0A', // Slightly lighter black
+  background: '#000000', // Pure Black (Matte)
+  backgroundAlt: '#0A0A0A', // Slightly lighter black (Matte)
   text: '#D4AF37',       // Gold text
   textSecondary: '#C9A961', // Muted gold for secondary text
   card: '#0A0A0A',       // Dark card background
   white: '#FFFFFF',
   black: '#000000',
+  shimmer: 'rgba(212, 175, 55, 0.3)', // Gold shimmer overlay
 };
 
 export const buttonStyles = StyleSheet.create({

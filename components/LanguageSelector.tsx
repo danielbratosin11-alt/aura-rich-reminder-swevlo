@@ -13,8 +13,9 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BlurView } from 'expo-blur';
-import { translations, languageNames } from '../utils/translations';
+import { translations, languageNames, countryFlags } from '../utils/translations';
 import { scheduleDailyNotification } from '../utils/notificationManager';
+import { updateMembershipIdCountry } from '../utils/membershipIdGenerator';
 import { colors } from '../styles/commonStyles';
 
 const LANGUAGE_KEY = '@aura_language';
@@ -49,6 +50,9 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
       await AsyncStorage.setItem(LANGUAGE_KEY, languageCode);
       setSelectedLanguage(languageCode);
       
+      // Update membership ID country code
+      await updateMembershipIdCountry(languageCode);
+      
       // Reschedule notification with new language
       await scheduleDailyNotification(languageCode);
       
@@ -65,6 +69,7 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
   const languages = Object.keys(translations).map(code => ({
     code,
     name: languageNames[code] || code,
+    flag: countryFlags[code] || '🌐',
   }));
 
   const filteredLanguages = languages.filter(lang =>
@@ -72,7 +77,7 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
     lang.code.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const renderLanguageItem = ({ item }: { item: { code: string; name: string } }) => (
+  const renderLanguageItem = ({ item }: { item: { code: string; name: string; flag: string } }) => (
     <TouchableOpacity
       style={[
         styles.languageItem,
@@ -80,16 +85,21 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
       ]}
       onPress={() => saveLanguage(item.code)}
     >
-      <Text
-        style={[
-          styles.languageName,
-          item.code === selectedLanguage && styles.selectedLanguageName,
-        ]}
-      >
-        {item.name}
-      </Text>
+      <View style={styles.languageItemContent}>
+        <Text style={styles.flagEmoji}>{item.flag}</Text>
+        <Text
+          style={[
+            styles.languageName,
+            item.code === selectedLanguage && styles.selectedLanguageName,
+          ]}
+        >
+          {item.name}
+        </Text>
+      </View>
       {item.code === selectedLanguage && (
-        <Text style={styles.checkmark}>✓</Text>
+        <View style={styles.selectedBadge}>
+          <Text style={styles.selectedText}>SELECTED</Text>
+        </View>
       )}
     </TouchableOpacity>
   );
@@ -107,7 +117,7 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
             <View style={styles.content}>
               {/* Header */}
               <View style={styles.header}>
-                <Text style={styles.title}>Select Language</Text>
+                <Text style={styles.title}>Select Your Language Pack</Text>
                 <TouchableOpacity onPress={onClose} style={styles.closeButton}>
                   <Text style={styles.closeButtonText}>✕</Text>
                 </TouchableOpacity>
@@ -115,6 +125,7 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
 
               {/* Search Bar */}
               <View style={styles.searchContainer}>
+                <Text style={styles.searchIcon}>🔍</Text>
                 <TextInput
                   style={styles.searchInput}
                   placeholder="Search languages..."
@@ -143,7 +154,7 @@ export default function LanguageSelector({ visible, onClose, onLanguageChange }:
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -153,12 +164,17 @@ const styles = StyleSheet.create({
     maxHeight: '80%',
     borderRadius: 20,
     overflow: 'hidden',
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: colors.primary,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
+    elevation: 10,
   },
   blurContainer: {
     flex: 1,
-    backgroundColor: Platform.OS === 'ios' ? 'rgba(10, 10, 10, 0.8)' : colors.backgroundAlt,
+    backgroundColor: Platform.OS === 'ios' ? 'rgba(10, 10, 10, 0.85)' : colors.backgroundAlt,
   },
   content: {
     flex: 1,
@@ -171,33 +187,43 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '700',
     color: colors.primary,
     letterSpacing: 1,
+    flex: 1,
   },
   closeButton: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: 'rgba(212, 175, 55, 0.1)',
+    backgroundColor: 'rgba(212, 175, 55, 0.15)',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.primary,
   },
   closeButtonText: {
-    fontSize: 24,
+    fontSize: 20,
     color: colors.primary,
     fontWeight: '300',
   },
   searchContainer: {
     marginBottom: 15,
-  },
-  searchInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: 'rgba(212, 175, 55, 0.1)',
     borderWidth: 1,
     borderColor: colors.primary,
-    borderRadius: 10,
+    borderRadius: 12,
     paddingHorizontal: 15,
+  },
+  searchIcon: {
+    fontSize: 18,
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
     paddingVertical: 12,
     fontSize: 16,
     color: colors.text,
@@ -209,19 +235,30 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 15,
+    paddingVertical: 16,
     paddingHorizontal: 15,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(212, 175, 55, 0.2)',
-  },
-  selectedLanguageItem: {
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
-    borderRadius: 8,
-    borderBottomWidth: 0,
+    borderBottomColor: 'rgba(212, 175, 55, 0.15)',
     marginBottom: 2,
   },
+  selectedLanguageItem: {
+    backgroundColor: 'rgba(212, 175, 55, 0.2)',
+    borderRadius: 10,
+    borderBottomWidth: 0,
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  languageItemContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  flagEmoji: {
+    fontSize: 28,
+    marginRight: 15,
+  },
   languageName: {
-    fontSize: 16,
+    fontSize: 17,
     color: colors.textSecondary,
     flex: 1,
   },
@@ -229,9 +266,16 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: '600',
   },
-  checkmark: {
-    fontSize: 20,
-    color: colors.primary,
-    fontWeight: 'bold',
+  selectedBadge: {
+    backgroundColor: colors.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  selectedText: {
+    fontSize: 11,
+    color: colors.black,
+    fontWeight: '700',
+    letterSpacing: 1,
   },
 });
