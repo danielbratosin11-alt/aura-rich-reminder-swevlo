@@ -46,6 +46,9 @@
           "color": "#D4AF37"
         }
       ]
-    ]
+    ],
+    "experiments": {
+      "tsconfigPaths": true
+    }
   }
 }
