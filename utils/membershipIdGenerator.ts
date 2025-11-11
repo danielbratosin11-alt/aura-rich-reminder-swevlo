@@ -1,16 +1,18 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { countryCodes } from './translations';
 
 const MEMBER_ID_KEY = '@aura_member_id';
 const MEMBER_COUNTER_KEY = '@aura_member_counter';
+const MAX_MEMBERS = 5000;
 
 /**
- * Generates a unique membership ID in the format: AURA-XX-NNNN
- * XX = Country code based on language
- * NNNN = Sequential 4-digit number
+ * Generates a unique membership ID in the format: AURA-LX-NNNN
+ * LX = Luxury/Exclusivity code (static)
+ * NNNN = Sequential 4-digit number (0001-5000)
+ * 
+ * This ID is generated once per user and never changes, regardless of language selection.
  */
-export async function generateMembershipId(languageCode: string): Promise<string> {
+export async function generateMembershipId(): Promise<string> {
   try {
     // Check if user already has a membership ID
     const existingId = await AsyncStorage.getItem(MEMBER_ID_KEY);
@@ -19,19 +21,16 @@ export async function generateMembershipId(languageCode: string): Promise<string
       return existingId;
     }
 
-    // Get country code from language
-    const countryCode = countryCodes[languageCode] || 'XX';
-
     // Get and increment counter
     const counterStr = await AsyncStorage.getItem(MEMBER_COUNTER_KEY);
     const counter = counterStr ? parseInt(counterStr, 10) : 0;
-    const newCounter = counter + 1;
+    const newCounter = Math.min(counter + 1, MAX_MEMBERS);
 
     // Format counter as 4-digit number
     const formattedCounter = newCounter.toString().padStart(4, '0');
 
-    // Generate membership ID
-    const memberId = `AURA-${countryCode}-${formattedCounter}`;
+    // Generate membership ID with static luxury code "LX"
+    const memberId = `AURA-LX-${formattedCounter}`;
 
     // Save membership ID and counter
     await AsyncStorage.setItem(MEMBER_ID_KEY, memberId);
@@ -41,7 +40,7 @@ export async function generateMembershipId(languageCode: string): Promise<string
     return memberId;
   } catch (error) {
     console.error('Error generating membership ID:', error);
-    return 'AURA-XX-0000';
+    return 'AURA-LX-0000';
   }
 }
 
@@ -55,34 +54,5 @@ export async function getMembershipId(): Promise<string | null> {
   } catch (error) {
     console.error('Error retrieving membership ID:', error);
     return null;
-  }
-}
-
-/**
- * Updates membership ID when language changes (optional - only if you want to update country code)
- */
-export async function updateMembershipIdCountry(languageCode: string): Promise<string> {
-  try {
-    const existingId = await AsyncStorage.getItem(MEMBER_ID_KEY);
-    if (!existingId) {
-      return await generateMembershipId(languageCode);
-    }
-
-    // Extract the counter from existing ID
-    const parts = existingId.split('-');
-    if (parts.length === 3) {
-      const counter = parts[2];
-      const countryCode = countryCodes[languageCode] || 'XX';
-      const newId = `AURA-${countryCode}-${counter}`;
-      
-      await AsyncStorage.setItem(MEMBER_ID_KEY, newId);
-      console.log('Updated membership ID country:', newId);
-      return newId;
-    }
-
-    return existingId;
-  } catch (error) {
-    console.error('Error updating membership ID:', error);
-    return existingId || 'AURA-XX-0000';
   }
 }
